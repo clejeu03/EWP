@@ -9,3 +9,6 @@ class Project:
         self._name = name
         self._path = path
 
+        print('name : ' + str(self._name))
+        print('path : ' + str(self._path))
+
