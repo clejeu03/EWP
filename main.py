@@ -2,11 +2,22 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from PySide import QtGui, QtCore
+from PySide import QtGui
 
-window = QtGui.QApplication(sys.argv)
+from controller.Controller import Controller
+from view.MainWindow import MainWindow
 
-label = QtGui.QLabel('Plop')
-label.show()
+app = QtGui.QApplication(sys.argv)
 
-window.exec_()
+#Creation of the main Controller
+controller = Controller()
+
+#Creation of the Main Window
+mainWindow = MainWindow(controller)
+controller.setMainWindow(mainWindow)
+
+if not mainWindow is None:
+    mainWindow.show()
+
+sys.exit(app.exec_())
+
