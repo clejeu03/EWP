@@ -7,6 +7,7 @@ from PySide import QtGui
 from controller.Controller import Controller
 from view.MainWindow import MainWindow
 
+#------------- MAIN --------------#
 app = QtGui.QApplication(sys.argv)
 
 #Creation of the main Controller
