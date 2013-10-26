@@ -21,6 +21,22 @@ class Controller():
     def test(self):
         #Temporary !
         self._session.newProject('Project1', "C:/Users/Cecilia/Documents/")
+        self._session.newProject('Project2', "C:/Users/Cecilia/Documents/")
+
+        print('recent projects : ' + str(self._session.recentProjects()))
+        print('current projects : ' + str(self._session.currentProjects()))
+
+        self._session.close(self._session.currentProjects()[1])
+        print('Removed...')
+
+        print('recent projects : ' + str(self._session.recentProjects()))
+        print('current projects : ' + str(self._session.currentProjects()))
+
+        self._session.newProject('Project1', "C:/Users/Cecilia/Documents/")
+        print('Created...')
+
+        print('recent projects : ' + str(self._session.recentProjects()))
+        print('current projects : ' + str(self._session.currentProjects()))
 
 #------------------------------------------------------------------------------------#
     def saveCurrentSession(self):
