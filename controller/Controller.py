@@ -33,7 +33,8 @@ class Controller(object):
         print str('recent projects : ' + str(self._session.recentProjects()))
         print str('current projects : ' + str(self._session.currentProjects()))
 
-        self._session.currentProjects()[0].addVideo('C:/Users/Cecilia/Documents/misfits.avi')
+        self._session.currentProjects()[0].addVideo('Big_buck_bunny.avi')
+        #self._session.currentProjects()[0].addVideo('misfits.avi')
 
         print str('added video...')
 

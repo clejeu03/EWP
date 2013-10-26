@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import cv2
 
 
 class Video(object):
@@ -9,7 +10,7 @@ class Video(object):
     def __init__(self, path):
         super(Video, self).__init__()
 
-        self._path = path
+        self._path = os.path.abspath(path)
         self._name = None
         self._duration = None
         self._weight = None # in bytes
@@ -24,6 +25,17 @@ class Video(object):
         completeName = os.path.split(self._path)[1]
         self._name = completeName.split(".")[0]
         self._format = completeName.split(".")[1]
+
+        #Opencv extracting
+        print 'path : ' + str(self._path)
+        capture = cv2.VideoCapture()
+
+        print 'capture : ' + str(capture.open(str('Big_buck_bunny.avi')))
+        format = capture.get(8)
+        height = capture.get(4)
+        width = capture.get(3)
+
+        print 'opencv => format : ' + str(format) + ' / height : ' + str(height) + ' / width : ' + str(width)
 
     # ---------------------- BUILT-IN FUNCTIONS ------------------------- #
 
