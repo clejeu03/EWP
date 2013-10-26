@@ -26,17 +26,19 @@ class Controller():
         print('recent projects : ' + str(self._session.recentProjects()))
         print('current projects : ' + str(self._session.currentProjects()))
 
-        self._session.close(self._session.currentProjects()[1])
+        self._session.closeProject(self._session.currentProjects()[1])
         print('Removed...')
 
         print('recent projects : ' + str(self._session.recentProjects()))
         print('current projects : ' + str(self._session.currentProjects()))
 
-        self._session.newProject('Project1', "C:/Users/Cecilia/Documents/")
-        print('Created...')
+        self._session.currentProjects()[0].addVideo('C:/Users/Cecilia/Documents/misfits.avi')
 
-        print('recent projects : ' + str(self._session.recentProjects()))
-        print('current projects : ' + str(self._session.currentProjects()))
+        print('added video...')
+
+        print(str(self._session.currentProjects()[0]))
+
+
 
 #------------------------------------------------------------------------------------#
     def saveCurrentSession(self):

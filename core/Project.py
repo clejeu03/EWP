@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from core.Video import Video
+
 class Project:
 
     def __init__(self, name, path):
@@ -8,9 +10,11 @@ class Project:
 
         self._name = name
         self._path = path
+        self._videos = []
 
-        print('name : ' + str(self._name))
-        print('path : ' + str(self._path))
+    def __str__(self):
+        #String representation of the class
+        return 'Project => name : ' + str(self._name) + ' / path : ' + str(self._path) + ' / videos : ' + str(len(self._videos))
 
     def __eq__(self, other):
         #Stands for the == compare
@@ -26,6 +30,18 @@ class Project:
         else :
             return False
 
+    def addVideo(self, path):
+        """
+        Create a Video class from the given file and add the video to the project.
+        :param path: the absolute path to the video
+        """
+        if len(self._videos) < 20 :
+            video = Video(path)
+            self._videos.append(video)
+        else :
+            #TODO : message saying that it's the last video that can be added
+            pass
+
     # ---------------------- GETTER / SETTER ------------------------- #
 
     def getName(self):
@@ -33,3 +49,6 @@ class Project:
 
     def getPath(self):
         return self._path
+
+    def getVideos(self):
+        return self._videos
