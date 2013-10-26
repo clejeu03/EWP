@@ -4,7 +4,7 @@
 import os
 
 
-class Video:
+class Video(object):
 
     def __init__(self, path):
         super(Video, self).__init__()
@@ -16,7 +16,16 @@ class Video:
         self._format = None
 
         self.extractInformations()
-        print(self)
+        print str(self)
+
+    def extractInformations(self):
+        #Get the size in bytes of the video file
+        self._weight = os.path.getsize(self._path)
+        completeName = os.path.split(self._path)[1]
+        self._name = completeName.split(".")[0]
+        self._format = completeName.split(".")[1]
+
+    # ---------------------- BUILT-IN FUNCTIONS ------------------------- #
 
     def __str__(self):
         #String representation
@@ -35,13 +44,6 @@ class Video:
             return True
         else :
             return False
-
-    def extractInformations(self):
-        #Get the size in bytes of the video file
-        self._weight = os.path.getsize(self._path)
-        completeName = os.path.split(self._path)[1]
-        self._name = completeName.split(".")[0]
-        self._format = completeName.split(".")[1]
 
     # ----------------------------- GETTER / SETTER ---------------------------- #
 

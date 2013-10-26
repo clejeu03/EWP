@@ -3,7 +3,7 @@
 
 from core.Video import Video
 
-class Project:
+class Project(object):
 
     def __init__(self, name, path):
         super(Project, self).__init__()
@@ -11,6 +11,20 @@ class Project:
         self._name = name
         self._path = path
         self._videos = []
+
+    def addVideo(self, path):
+        """
+        Create a Video class from the given file and add the video to the project.
+        :param path: the absolute path to the video
+        """
+        if len(self._videos) < 20 :
+            video = Video(path)
+            self._videos.append(video)
+        else :
+            #TODO : message saying that it's the last video that can be added
+            pass
+
+    # ---------------------- BUILT-IN FUNCTIONS ------------------------- #
 
     def __str__(self):
         #String representation of the class
@@ -29,18 +43,6 @@ class Project:
             return True
         else :
             return False
-
-    def addVideo(self, path):
-        """
-        Create a Video class from the given file and add the video to the project.
-        :param path: the absolute path to the video
-        """
-        if len(self._videos) < 20 :
-            video = Video(path)
-            self._videos.append(video)
-        else :
-            #TODO : message saying that it's the last video that can be added
-            pass
 
     # ---------------------- GETTER / SETTER ------------------------- #
 

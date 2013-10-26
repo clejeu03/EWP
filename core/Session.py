@@ -5,10 +5,10 @@ import os
 from core.Project import Project
 
 
-class Session():
+class Session(object):
 
     def __init__(self):
-        super(Session).__init__()
+        super(Session, self).__init__()
 
         #Store the projects in the current session
         self._projectsList = []

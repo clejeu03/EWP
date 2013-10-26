@@ -4,7 +4,8 @@ import os
 from view.MainWindow import MainWindow
 from core.Session import Session
 
-class Controller():
+
+class Controller(object):
 
     def __init__(self):
         super(Controller, self).__init__()
@@ -23,22 +24,20 @@ class Controller():
         self._session.newProject('Project1', "C:/Users/Cecilia/Documents/")
         self._session.newProject('Project2', "C:/Users/Cecilia/Documents/")
 
-        print('recent projects : ' + str(self._session.recentProjects()))
-        print('current projects : ' + str(self._session.currentProjects()))
+        print str('recent projects : ' + str(self._session.recentProjects()))
+        print str('current projects : ' + str(self._session.currentProjects()))
 
         self._session.closeProject(self._session.currentProjects()[1])
-        print('Removed...')
+        print str('Removed...')
 
-        print('recent projects : ' + str(self._session.recentProjects()))
-        print('current projects : ' + str(self._session.currentProjects()))
+        print str('recent projects : ' + str(self._session.recentProjects()))
+        print str('current projects : ' + str(self._session.currentProjects()))
 
         self._session.currentProjects()[0].addVideo('C:/Users/Cecilia/Documents/misfits.avi')
 
-        print('added video...')
+        print str('added video...')
 
-        print(str(self._session.currentProjects()[0]))
-
-
+        print str(self._session.currentProjects()[0])
 
 #------------------------------------------------------------------------------------#
     def saveCurrentSession(self):
