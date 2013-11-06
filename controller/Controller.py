@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-from view.MainWindow import MainWindow
+
 from core.Session import Session
 
 
