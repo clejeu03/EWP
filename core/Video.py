@@ -14,7 +14,9 @@ class Video(object):
         self._name = None
         self._duration = None
         self._weight = None # in bytes
-        self._format = None
+        self._height = None
+        self._width = None
+        self._fps = None
 
         self.extractInformations()
         print str(self)
@@ -22,26 +24,23 @@ class Video(object):
     def extractInformations(self):
         #Get the size in bytes of the video file
         self._weight = os.path.getsize(self._path)
-        completeName = os.path.split(self._path)[1]
-        self._name = completeName.split(".")[0]
-        self._format = completeName.split(".")[1]
+        self._name = os.path.basename(self._path)
 
         #Opencv extracting
-        print 'path : ' + str(self._path)
         capture = cv2.VideoCapture()
+        if capture is False:
+            raise RuntimeError("The video could not be loaded.")
 
-        print 'capture : ' + str(capture.open(str('Big_buck_bunny.avi')))
-        format = capture.get(8)
-        height = capture.get(4)
-        width = capture.get(3)
-
-        print 'opencv => format : ' + str(format) + ' / height : ' + str(height) + ' / width : ' + str(width)
+        #Retrieve the main informations
+        self._fps = capture.get(5)
+        self._height = capture.get(4)
+        self._width = capture.get(3)
 
     # ---------------------- BUILT-IN FUNCTIONS ------------------------- #
 
     def __str__(self):
         #String representation
-        return 'Video => name ' + str(self._name) + '/ path : ' + str(self._path) + ' / weight : ' + str(self._weight)
+        return 'Video => name ' + str(self._name) + '/ VideoPath : ' + str(self._path) + ' / VideoWeight : ' + str(self._weight)
 
     def __eq__(self, other):
         #Stand for the == compare

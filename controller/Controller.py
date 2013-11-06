@@ -21,8 +21,8 @@ class Controller(object):
 #------------------------------------------------------------------------------------#
     def test(self):
         #Temporary !
-        self._session.newProject('Project1', "C:/Users/Cecilia/Documents/")
-        self._session.newProject('Project2', "C:/Users/Cecilia/Documents/")
+        self._session.newProject('Project1', '/home/cecilia/Documents/')
+        self._session.newProject('Project2', '/home/cecilia/Documents/')
 
         print str('recent projects : ' + str(self._session.recentProjects()))
         print str('current projects : ' + str(self._session.currentProjects()))
@@ -33,7 +33,7 @@ class Controller(object):
         print str('recent projects : ' + str(self._session.recentProjects()))
         print str('current projects : ' + str(self._session.currentProjects()))
 
-        self._session.currentProjects()[0].addVideo('Big_buck_bunny.avi')
+        self._session.currentProjects()[0].addVideo('/home/cecilia/Vidéos/Big_buck_bunny.avi')
         #self._session.currentProjects()[0].addVideo('misfits.avi')
 
         print str('added video...')
