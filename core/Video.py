@@ -3,6 +3,7 @@
 
 import os
 import cv2
+from PySide import QtGui, QtCore
 
 
 class Video(object):
@@ -35,6 +36,12 @@ class Video(object):
         self._fps = capture.get(5)
         self._height = capture.get(4)
         self._width = capture.get(3)
+
+    def getListWidget(self):
+        """Draw the video under the shape of a list item widget"""
+        listWidget = QtGui.QListWidgetItem()
+
+        return listWidget
 
     # ---------------------- BUILT-IN FUNCTIONS ------------------------- #
 

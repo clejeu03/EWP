@@ -50,4 +50,6 @@ class Controller(object):
     def setMainWindow(self, mainWindow):
         self._mainWindow = mainWindow
 
+    def getSession(self):
+        return self._session
 
