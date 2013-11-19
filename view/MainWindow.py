@@ -20,9 +20,31 @@ class MainWindow(QtGui.QMainWindow):
         geometry = settings.value("geometry", self.saveGeometry())
         self.restoreGeometry(geometry)
 
+        self.initView()
+
     def initView(self):
         """ Draw the main docked widget of the mainWindow"""
+
+        #Draw the Session View
         self.sessionView = SessionView(self._controller)
+        leftDockWidget = QtGui.QDockWidget("", self)
+        leftDockWidget.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
+        leftDockWidget.setWidget(self.sessionView)
+        leftDockWidget.setFeatures(QtGui.QDockWidget.DockWidgetMovable | QtGui.QDockWidget.DockWidgetClosable)
+        self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, leftDockWidget)
+
+        #Draw the central widget
+        self.mdiArea = QtGui.QMdiArea()
+        self.setCentralWidget(self.mdiArea)
+
+        #Draw the Player View
+        rightDockWidget = QtGui.QDockWidget("", self)
+        rightDockWidget.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
+        #rightDockWidget.setWidget(self.player)
+        rightDockWidget.setFeatures(QtGui.QDockWidget.DockWidgetMovable | QtGui.QDockWidget.DockWidgetClosable)
+        self.addDockWidget(QtCore.Qt.RightDockWidgetArea, rightDockWidget)
+
+
 
 
     def closeEvent(self, event):

@@ -12,7 +12,8 @@ class Session(object):
 
         #Store the projects in the current session
         self._projectsList = []
-        #Store in a stack LIFO the recent projects
+
+        #Store in a stack FIFO the recent projects
         self._recentProjects = []
         self._maxRecentProjects = 5
 
@@ -70,8 +71,18 @@ class Session(object):
     def recentProjects(self):
         return self._recentProjects
 
-    def currentProjects(self):
+    def getProjectList(self):
         return self._projectsList
+
+    def currentProject(self):
+        """
+        CAUTION : this function was valuable as long as there is only one project in a Session
+        Retrieve the first project of the list, or the only one if there is only one project at a time
+        """
+        if len(self._projectsList) != 0:
+            return self._projectsList[0]
+        else:
+            return None
 
     def getMaxRecentProject(self):
         return self._maxRecentProjects

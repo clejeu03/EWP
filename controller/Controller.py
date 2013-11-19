@@ -15,7 +15,7 @@ class Controller(object):
         self.initSession()
 
         #Temporary !
-        self.test()
+        #self.test()
 
 #------------------------------------------------------------------------------------#
     def test(self):
