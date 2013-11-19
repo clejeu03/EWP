@@ -20,17 +20,38 @@ class MainWindow(QtGui.QMainWindow):
         geometry = settings.value("geometry", self.saveGeometry())
         self.restoreGeometry(geometry)
 
+        #self.loadStyleSheet()
         self.initView()
+
+    def loadStyleSheet(self, styleFile=None):
+        """
+        Retrieve the style describe in a css file into the application
+        :param styleFile: the name of the file, supposing it's belong to the resources folder, if there isn't, then the default style is applied
+        :type styleFile: string
+        """
+
+        #Read the default file
+        file = QtCore.QFile("../resources/stylesheet.css")
+        file.open(QtCore.QIODevice.ReadOnly | QtCore.QIODevice.Text)
+        stylesheet = file.readAll()
+
+        #Apply the style to the whole application
+        self.setStyleSheet(stylesheet)
 
     def initView(self):
         """ Draw the main docked widget of the mainWindow"""
 
         #Draw the Session View
         self.sessionView = SessionView(self._controller)
-        leftDockWidget = QtGui.QDockWidget("", self)
+        leftDockWidget = QtGui.QDockWidget("Session", self)
         leftDockWidget.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
         leftDockWidget.setWidget(self.sessionView)
         leftDockWidget.setFeatures(QtGui.QDockWidget.DockWidgetMovable | QtGui.QDockWidget.DockWidgetClosable)
+
+        #temporary !
+        titleBar = QtGui.QWidget()
+        leftDockWidget.setTitleBarWidget(titleBar)
+
         self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, leftDockWidget)
 
         #Draw the central widget
@@ -38,7 +59,7 @@ class MainWindow(QtGui.QMainWindow):
         self.setCentralWidget(self.mdiArea)
 
         #Draw the Player View
-        rightDockWidget = QtGui.QDockWidget("", self)
+        rightDockWidget = QtGui.QDockWidget("Player", self)
         rightDockWidget.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
         #rightDockWidget.setWidget(self.player)
         rightDockWidget.setFeatures(QtGui.QDockWidget.DockWidgetMovable | QtGui.QDockWidget.DockWidgetClosable)

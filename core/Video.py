@@ -37,12 +37,6 @@ class Video(object):
         self._height = capture.get(4)
         self._width = capture.get(3)
 
-    def getListWidget(self):
-        """Draw the video under the shape of a list item widget"""
-        listWidget = QtGui.QListWidgetItem()
-
-        return listWidget
-
     # ---------------------- BUILT-IN FUNCTIONS ------------------------- #
 
     def __str__(self):
