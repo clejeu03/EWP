@@ -3,7 +3,6 @@
 
 import os
 import cv2
-from PySide import QtGui, QtCore
 
 
 class Video(object):
@@ -18,9 +17,9 @@ class Video(object):
         self._height = None
         self._width = None
         self._fps = None
+        self._thumbnail = None
 
         self.extractInformations()
-        print str(self)
 
     def extractInformations(self):
         #Get the size in bytes of the video file
@@ -67,3 +66,18 @@ class Video(object):
 
     def getWeight(self):
         return self._weight
+
+    def getDuration(self):
+        return self._duration
+
+    def getWidth(self):
+        return self._width
+
+    def getHeight(self):
+        return self._height
+
+    def getFPS(self):
+        return self._fps
+
+    def getThumbnail(self):
+        return self._thumbnail

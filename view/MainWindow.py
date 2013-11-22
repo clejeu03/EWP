@@ -20,7 +20,7 @@ class MainWindow(QtGui.QMainWindow):
         geometry = settings.value("geometry", self.saveGeometry())
         self.restoreGeometry(geometry)
 
-        #self.loadStyleSheet()
+        self.loadStyleSheet()
         self.initView()
 
     def loadStyleSheet(self, styleFile=None):
@@ -31,12 +31,17 @@ class MainWindow(QtGui.QMainWindow):
         """
 
         #Read the default file
-        file = QtCore.QFile("../resources/stylesheet.css")
-        file.open(QtCore.QIODevice.ReadOnly | QtCore.QIODevice.Text)
+        file = QtCore.QFile("resources/style.css")
+        if not file.open(QtCore.QIODevice.ReadOnly | QtCore.QIODevice.Text) is True :
+            raise IOError("Can't load the style file.")
         stylesheet = file.readAll()
 
+        #Conversion from QByteArray to Unicode String
+        codec = QtCore.QTextCodec.codecForName("KOI8-R")
+        string = codec.toUnicode(stylesheet)
+
         #Apply the style to the whole application
-        self.setStyleSheet(stylesheet)
+        self.setStyleSheet(string)
 
     def initView(self):
         """ Draw the main docked widget of the mainWindow"""
