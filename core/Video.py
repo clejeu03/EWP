@@ -27,7 +27,7 @@ class Video(object):
         self._name = os.path.basename(self._path)
 
         #Opencv extracting
-        capture = cv2.VideoCapture()
+        capture = cv2.VideoCapture(self._path)
         if capture is False:
             raise RuntimeError("The video could not be loaded.")
 
@@ -35,6 +35,26 @@ class Video(object):
         self._fps = capture.get(5)
         self._height = capture.get(4)
         self._width = capture.get(3)
+
+        capture.release()
+
+        self._thumbnail = self.extractThumbnail()
+
+    def extractThumbnail(self):
+        """ Extract a single frame from around 1/3 of the video. If the video is updated, then the thumbnail is recreated."""
+
+        #Create a capture with the video file
+        capture = cv2.VideoCapture(self._path)
+
+        #Move the video to 1/3
+        capture.set(1, 30)
+
+        #Grab the frame
+
+
+        capture.release()
+
+        return thumbnail
 
     # ---------------------- BUILT-IN FUNCTIONS ------------------------- #
 
