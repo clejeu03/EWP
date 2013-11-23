@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from core.Session import Session
-
+import os
 
 class Controller(object):
 
@@ -12,11 +12,13 @@ class Controller(object):
         self._mainWindow = None
         self._session = None
 
+
         self.initSession()
 
         #Temporary !
         #self.test()
-        self._session.newProject('Project1', '/home/cecilia/Documents/')
+        self.createNewProject()
+        #self._session.newProject('Project1', '/home/cecilia/Documents/')
         self._session.currentProject().addVideo('/home/cecilia/Vidéos/Big_buck_bunny.avi')
 
 #------------------------------------------------------------------------------------#
@@ -44,6 +46,25 @@ class Controller(object):
 
 
 #------------------------------------------------------------------------------------#
+    def createNewProject(self):
+        """ Open a file dialog to create a new directory for the project """
+
+        name = "ProjectPlop"
+        path = "/home/cecilia/Documents/"
+
+        #TODO : dialog
+        if not type(name) is str:
+            raise TypeError('Non correct Project name : a string is expected.')
+        #Test if the path is a valid directory
+        elif not os.path.isdir(path):
+            raise NotADirectoryError()
+        else:
+            #Create the directory for the project and fill
+            projectPath = path + name
+            os.mkdir(projectPath)
+            os.mkdir(projectPath + os.sep + "Video Files")
+            self._session.newProject(name, projectPath)
+
     def saveCurrentSession(self):
         #TODO : use pickle module for serilization
         pass
@@ -56,4 +77,5 @@ class Controller(object):
 
     def getSession(self):
         return self._session
+
 

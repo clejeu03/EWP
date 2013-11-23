@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import os
 from PySide import QtGui
 
 from controller.Controller import Controller
@@ -9,6 +10,7 @@ from view.MainWindow import MainWindow
 
 #------------- MAIN --------------#
 app = QtGui.QApplication(sys.argv)
+
 
 #Creation of the main Controller
 controller = Controller()

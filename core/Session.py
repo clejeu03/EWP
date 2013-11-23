@@ -25,24 +25,15 @@ class Session(object):
         :type name: str
         :type path: str
         """
-        if not type(name) is str:
-            raise TypeError('Non correct Project name : a string is expected.')
-        #Test if the path is a valid directory
-        elif not os.path.isdir(path):
-            raise NotADirectoryError()
-        else:
-            project = Project(name, path)
-            #Check if the project already exists
-            if project in self._projectsList:
-                raise Exception('New Project : a project with the same name and location already exists.')
-            else:
-                #Create the project save file
-                try:
-                    open(os.path.join(path, str(name)+".ewp"), "w")
-                except IOError:
-                    pass
-                self._projectsList.append(project)
-                self.addToRecentProjects(project)
+        project = Project(name, path)
+
+        #Create the project save file
+        try:
+            open(os.path.join(path, str(name)+".ewp"), "w")
+        except IOError:
+            pass
+        self._projectsList.append(project)
+        self.addToRecentProjects(project)
 
     def addToRecentProjects(self, project):
         """
