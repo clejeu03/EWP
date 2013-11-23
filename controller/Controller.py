@@ -18,17 +18,12 @@ class Controller(object):
         self.initSession()
 
         #Temporary !
-        self.createNewProject()
-        self.importVideo()
+        #self.createNewProject()
+        #self.importVideo()
 
 
-    def createNewProject(self):
-        """ Open a file dialog to create a new Project by choosing a directory for saving it """
-
-        name = "ProjectPlop"
-        path = "/home/cecilia/Documents/"
-
-        #TODO : dialog
+    def createNewProject(self, name, path):
+        """ Create a new Project by choosing a directory for saving it """
 
         if not type(name) is str:
             raise TypeError('Non correct Project name : a string is expected.')
