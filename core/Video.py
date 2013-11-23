@@ -12,7 +12,8 @@ class Video(object):
         super(Video, self).__init__()
 
         self._path = os.path.abspath(path)
-        self._name = None
+        self._name = None #Name with the extension
+        self._simpleName = None #Name without extension
         self._duration = None
         self._weight = None # in bytes
         self._height = None
@@ -26,6 +27,7 @@ class Video(object):
         #Get the size in bytes of the video file
         self._weight = os.path.getsize(self._path)
         self._name = os.path.basename(self._path)
+        self._simpleName = os.path.splitext(self._name)[0]
 
         #Opencv extracting
         capture = cv2.VideoCapture(self._path)
@@ -54,7 +56,7 @@ class Video(object):
         #Grab the frame
         value,snapshot = capture.read()
         if value is True :
-            save = cv2.imwrite(str("resources/test.jpg"), snapshot)
+            save = cv2.imwrite(str("data/"+ self._simpleName +".jpg"), snapshot)
             if not save is True:
                 raise Exception("Error while saving a snapshot of the video : " + str(self._name))
         else:

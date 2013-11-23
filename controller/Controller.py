@@ -75,6 +75,7 @@ class Controller(object):
         """
 
         path = "/home/cecilia/Vidéos/Big_buck_bunny.avi"
+        name = os.path.basename(path)
         #TODO : dialog
 
         #Copy the video file
@@ -82,7 +83,7 @@ class Controller(object):
         shutil.copy(path, videoProjectPath)
 
         #Create the video class
-        self._session.currentProject().addVideo(videoProjectPath)
+        self._session.currentProject().addVideo(videoProjectPath + os.sep + name)
 
     def saveCurrentSession(self):
         #TODO : use pickle module for serilization
