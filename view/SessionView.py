@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from PySide import QtGui, QtCore
+from PySide import QtGui
+import math
 
 class SessionView(QtGui.QWidget) :
 
@@ -25,8 +26,10 @@ class SessionView(QtGui.QWidget) :
 
             for video in self.controller.getSession().currentProject().getVideos():
                 #Prepare the view of each item in the project
-                listItem = self.drawListItemView(video)
+                listItem = QtGui.QListWidgetItem()
+                itemWidget = self.drawListItemWidget(video)
                 self.list.addItem(listItem)
+                self.list.setItemWidget(listItem, itemWidget)
 
             #Draw the title of the project
             title = QtGui.QLabel(self.controller.getSession().currentProject().getName())
@@ -41,23 +44,34 @@ class SessionView(QtGui.QWidget) :
             layout.addWidget(missingLabel)
         self.setLayout(layout)
 
-    def drawListItemView(self, video):
+    def drawListItemWidget(self, video):
         """
         This function create the ListItemWidget contained by the ListViewWidget of the SessionView
         :param video: the video targeted in the current project
         :type video: class Video
         :return type: QListWidgetItem
         """
-        item = QtGui.QListWidgetItem()
-        item.setText(video.getName())
+        item = QtGui.QWidget()
+        item.setObjectName("ItemWidget")
 
-        #layout = QtGui.QHBoxLayout()
+        layout = QtGui.QHBoxLayout()
 
+        #Draw the snapshot
         thumbnail = QtGui.QPixmap(video.getThumbnail())
-        item.setIcon(thumbnail)
+        reduceThumbnail = thumbnail.scaledToHeight(30)
+        picture = QtGui.QLabel()
+        picture.setPixmap(reduceThumbnail)
+        layout.addWidget(picture)
 
-        #layout.addWidget(thumbnail)
-        #item.setLayout(layout)
+        #Display the title
+        title = QtGui.QLabel(video.getName())
+        layout.addWidget(title)
+
+        #Display the duration of the video
+        duration = QtGui.QLabel(video.computeDuration())
+        layout.addWidget(duration)
+
+        item.setLayout(layout)
 
         return item
 

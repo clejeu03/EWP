@@ -14,7 +14,7 @@ class Video(object):
         self._path = os.path.abspath(path)
         self._name = None #Name with the extension
         self._simpleName = None #Name without extension
-        self._duration = None
+        self._duration = None # in seconds
         self._weight = None # in bytes
         self._height = None
         self._width = None
@@ -33,13 +33,16 @@ class Video(object):
         capture = cv2.VideoCapture(self._path)
         if capture is False:
             raise RuntimeError("The video could not be loaded.")
+        else:
+            #Retrieve the main informations
+            self._fps = capture.get(5)
+            self._height = capture.get(4)
+            self._width = capture.get(3)
 
-        #Retrieve the main informations
-        self._fps = capture.get(5)
-        self._height = capture.get(4)
-        self._width = capture.get(3)
+            #Determine the duration of the video in seconds
+            self._duration = math.floor(capture.get(7) / self._fps)
 
-        capture.release()
+            capture.release()
 
         self.extractThumbnail()
 
@@ -65,11 +68,25 @@ class Video(object):
         else:
             raise Exception("Couldn't read the video : " + str(self._name))
 
-
-
         #Free the resources, not mandatory with Pyhton
         capture.release()
 
+    def computeDuration(self):
+        """
+        Determine the format of the duration, whever the hours are usefull or not, and return a string as a convenience container.
+        """
+
+        minutes = math.trunc(math.floor(self._duration / 60))
+        seconds = math.trunc(self._duration - minutes*60)
+        duration = str(minutes) + ":" + str(seconds)
+
+        if minutes > 60 : #Just in case a video is very long...
+            hours = math.trunc(math.floor(minutes / 60))
+            minutes = math.trunc(minutes - (hours*60))
+            seconds = math.trunc(self._duration - minutes*60)
+            duration = str(hours) + ":" + str(minutes) + ":" + str(seconds)
+
+        return duration
 
     # ---------------------- BUILT-IN FUNCTIONS ------------------------- #
 

@@ -1,6 +1,14 @@
 /*----------- DEFAULT STYLE -------------*/
+
+/*----------- SESSION VIEW -------------*/
 QListView  {
     show-decoration-selected: 1; /* make the selection span the entire width of the view */
+}
+
+QListView::item {
+    height: 40px;
+    padding : 0px;
+    margin : 0px;
 }
 
 QListView::item:alternate  {
