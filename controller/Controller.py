@@ -17,37 +17,10 @@ class Controller(object):
         self.initSession()
 
         #Temporary !
-        #self.test()
         self.createNewProject()
         self.importVideo()
-        #self._session.newProject('Project1', '/home/cecilia/Documents/')
-        #self._session.currentProject().addVideo('/home/cecilia/Vidéos/Big_buck_bunny.avi')
-
-#------------------------------------------------------------------------------------#
-    def test(self):
-        #Temporary !
-        self._session.newProject('Project1', '/home/cecilia/Documents/')
-        self._session.newProject('Project2', '/home/cecilia/Documents/')
 
 
-        print str('recent projects : ' + str(self._session.recentProjects()))
-        print str('current projects : ' + str(self._session.getProjectList()))
-
-        self._session.closeProject(self._session.currentProject())
-        print str('Removed...')
-
-        print str('recent projects : ' + str(self._session.recentProjects()))
-        print str('current projects : ' + str(self._session.getProjectList()))
-
-        self._session.currentProject().addVideo('/home/cecilia/Vidéos/Big_buck_bunny.avi')
-        #self._session.currentProject().addVideo('misfits.avi')
-
-        print str('added video...')
-
-        print str(self._session.currentProject())
-
-
-#------------------------------------------------------------------------------------#
     def createNewProject(self):
         """ Open a file dialog to create a new Project by choosing a directory for saving it """
 
