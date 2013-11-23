@@ -3,6 +3,7 @@
 
 import os
 import cv2
+import math
 
 
 class Video(object):
@@ -38,7 +39,7 @@ class Video(object):
 
         capture.release()
 
-        self._thumbnail = self.extractThumbnail()
+        self.extractThumbnail()
 
     def extractThumbnail(self):
         """ Extract a single frame from around 1/3 of the video. If the video is updated, then the thumbnail is recreated."""
@@ -47,14 +48,21 @@ class Video(object):
         capture = cv2.VideoCapture(self._path)
 
         #Move the video to 1/3
-        capture.set(1, 30)
+        frameCount = capture.get(7)
+        capture.set(1, math.floor(frameCount/3))
 
         #Grab the frame
+        value,snapshot = capture.read()
+        if value is True :
+            save = cv2.imwrite(str("resources/test.jpg"), snapshot)
+            if not save is True:
+                raise Exception("Error while saving a snapshot of the video : " + str(self._name))
+        else:
+            raise Exception("Couldn't read the video : " + str(self._name))
 
-
+        #Free the resources, not mandatory with Pyhton
         capture.release()
 
-        return thumbnail
 
     # ---------------------- BUILT-IN FUNCTIONS ------------------------- #
 
