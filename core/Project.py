@@ -24,6 +24,19 @@ class Project(object):
             #TODO : message saying that it's the last video that can be added
             pass
 
+    def suppressVideo(self, video):
+        """
+        Suppress a video from the current project
+        """
+        if isinstance(video, Video):
+            for item in self._videos:
+                print "item : " + str(type(item)) + "video : " + str(type(video))
+                if item == video:
+                    self._videos.remove(video)
+        else:
+            raise TypeError("Trying to suppress an item which is not of type Video")
+
+
     # ---------------------- BUILT-IN FUNCTIONS ------------------------- #
 
     def __str__(self):

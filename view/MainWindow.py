@@ -47,10 +47,10 @@ class MainWindow(QtGui.QMainWindow):
         """ Draw the main docked widget of the mainWindow"""
 
         #Draw the Session View
-        self.sessionView = SessionView(self._controller)
+        self._sessionView = SessionView(self._controller)
         leftDockWidget = QtGui.QDockWidget("Session", self)
         leftDockWidget.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
-        leftDockWidget.setWidget(self.sessionView)
+        leftDockWidget.setWidget(self._sessionView)
         leftDockWidget.setFeatures(QtGui.QDockWidget.DockWidgetMovable | QtGui.QDockWidget.DockWidgetClosable)
 
         #temporary !
@@ -78,3 +78,8 @@ class MainWindow(QtGui.QMainWindow):
         settings = QtCore.QSettings("Cecilia", "EWP")
         settings.setValue("geometry", self.saveGeometry())
         super(MainWindow, self).closeEvent(event)
+
+    #------------------------ GETTER / SETTER ------------------------ #
+
+    def getSessionView(self):
+        return self._sessionView
