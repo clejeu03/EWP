@@ -50,6 +50,15 @@ class SessionView(QtGui.QWidget) :
         """
         item = QtGui.QListWidgetItem()
         item.setText(video.getName())
+
+        #layout = QtGui.QHBoxLayout()
+
+        thumbnail = QtGui.QPixmap(video.getThumbnail())
+        item.setIcon(thumbnail)
+
+        #layout.addWidget(thumbnail)
+        #item.setLayout(layout)
+
         return item
 
     def update(self):

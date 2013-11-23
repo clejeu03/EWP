@@ -58,6 +58,7 @@ class Controller(object):
 
         if not type(name) is str:
             raise TypeError('Non correct Project name : a string is expected.')
+
         #Test if the path is a valid directory
         elif not os.path.isdir(path):
             raise NotADirectoryError()
@@ -73,9 +74,9 @@ class Controller(object):
         Open a dialog for the user to choose a video to import into the current project,
         then copy the video into the project folder and create the Video class corresponding.
         """
-
         path = "/home/cecilia/Vidéos/Big_buck_bunny.avi"
         name = os.path.basename(path)
+
         #TODO : dialog
 
         #Copy the video file

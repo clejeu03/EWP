@@ -59,8 +59,13 @@ class Video(object):
             save = cv2.imwrite(str("data/"+ self._simpleName +".jpg"), snapshot)
             if not save is True:
                 raise Exception("Error while saving a snapshot of the video : " + str(self._name))
+            else :
+                #We record the path to the snapshot only of the imwrite function succeed.
+                self._thumbnail = str("data/"+ self._simpleName +".jpg")
         else:
             raise Exception("Couldn't read the video : " + str(self._name))
+
+
 
         #Free the resources, not mandatory with Pyhton
         capture.release()

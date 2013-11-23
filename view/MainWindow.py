@@ -31,7 +31,7 @@ class MainWindow(QtGui.QMainWindow):
         """
 
         #Read the default file
-        file = QtCore.QFile("resources/style.css")
+        file = QtCore.QFile("resources/styles/default.css")
         if not file.open(QtCore.QIODevice.ReadOnly | QtCore.QIODevice.Text) is True :
             raise IOError("Can't load the style file.")
         stylesheet = file.readAll()
