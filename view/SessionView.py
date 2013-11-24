@@ -17,25 +17,20 @@ class SessionView(QtGui.QWidget) :
     def init(self):
         """ Draw the session view for the first time """
 
-        layout = QtGui.QVBoxLayout()
+        self.layout = QtGui.QVBoxLayout()
 
-        #If the project is not null, then we draw the video it contains
         if not self._controller.getSession().currentProject() is None:
-
-            #Draw the title of the project
-            title = QtGui.QLabel(self._controller.getSession().currentProject().getName())
-            layout.addWidget(title)
-
             self.list = self.update()
 
             #Draw the elements of the project
-            layout.addWidget(self.list)
+            self.layout.addWidget(self.list)
 
-        #Display a message to tell the user project is missing
         else:
+            #Display a message to tell the user project is missing
             missingLabel = QtGui.QLabel("There is no project. Please create or open one.")
-            layout.addWidget(missingLabel)
-        self.setLayout(layout)
+            self.layout.addWidget(missingLabel)
+
+        self.setLayout(self.layout)
 
     def drawListItemWidget(self, video):
         """
@@ -94,20 +89,28 @@ class SessionView(QtGui.QWidget) :
 
         #TODO : check if the order of the video in the view is different before and after updating
 
-        #Clear the view by erasing all the items of the list
-        if not self.list is None:
-            self.list.clear()
-
         list = QtGui.QListWidget()
 
-        #Create items according to those contained in the Project data
-        for video in self._controller.getSession().currentProject().getVideos():
-            #Prepare the view of each item in the project
-            listItem = QtGui.QListWidgetItem()
-            listItem.setData(QtCore.Qt.UserRole, video)
-            itemWidget = self.drawListItemWidget(video)
-            list.addItem(listItem)
-            list.setItemWidget(listItem, itemWidget)
+        #If the project is not null, then we draw the video it contains
+        if not self._controller.getSession().currentProject() is None:
+            #Draw the title of the project
+            title = QtGui.QLabel(self._controller.getSession().currentProject().getName())
+            self.layout.addWidget(title)
+
+            #TODO : suppress the temporary text in the place of the list
+
+            #Clear the view by erasing all the items of the list
+            if not self.list is None:
+                self.list.clear()
+
+            #Create items according to those contained in the Project data
+            for video in self._controller.getSession().currentProject().getVideos():
+                #Prepare the view of each item in the project
+                listItem = QtGui.QListWidgetItem()
+                listItem.setData(QtCore.Qt.UserRole, video)
+                itemWidget = self.drawListItemWidget(video)
+                list.addItem(listItem)
+                list.setItemWidget(listItem, itemWidget)
 
         return list
 

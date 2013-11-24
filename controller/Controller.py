@@ -33,10 +33,11 @@ class Controller(object):
             raise NotADirectoryError()
         else:
             #Create the directory for the project and fill
-            projectPath = path + name
+            projectPath = path + os.sep + name
             os.mkdir(projectPath)
             os.mkdir(projectPath + os.sep + "Video Files")
             self._session.newProject(name, projectPath)
+            self._mainWindow.update()
 
     def importVideo(self):
         """
@@ -69,7 +70,7 @@ class Controller(object):
                 self._session.currentProject().suppressVideo(video)
 
         #Update the view
-        self._mainWindow.getSessionView().update()
+        self._mainWindow.update()
 
     def saveCurrentSession(self):
         #TODO : use pickle module for serilization

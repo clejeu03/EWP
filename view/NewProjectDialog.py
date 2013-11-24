@@ -13,6 +13,10 @@ class NewProjectDialog(QtGui.QDialog):
         self.setMinimumSize(QtCore.QSize(500, 250))
         self.setWindowTitle(self.tr("Project Creation Dialog"))
 
+        #Field final values
+        self.name = None
+        self.path = None
+
         #Elements
         self.label = None
         self.layout = None
@@ -102,10 +106,8 @@ class NewProjectDialog(QtGui.QDialog):
 
         #Gather informations at the execution
         if (self.exec_() == QtGui.QDialog.Accepted):
-            name = self.nameInput.text()
-            path = self.directoryInput.text()
-            print "result : " + name + " & " + path
-            #self._controller.createNewProject(name, path)
+            self.name = self.nameInput.text()
+            self.path = self.directoryInput.text()
 
     @QtCore.Slot(str)
     def nameInputChanged(self, text):
