@@ -3,6 +3,7 @@
 
 from PySide import QtGui, QtCore
 from view.SessionView import SessionView
+from view.NewProjectDialog import NewProjectDialog
 
 class MainWindow(QtGui.QMainWindow):
 
@@ -122,62 +123,8 @@ class MainWindow(QtGui.QMainWindow):
 
     def newProject(self):
         """ Forward the creation of a new project to the controller. """
-        #name = "ProjectPlop"
-        #path = "/home/cecilia/Documents/"
 
-        dialog = QtGui.QDialog()
-        dialog.setModal(True)
-        dialog.setMinimumSize(QtCore.QSize(500, 250))
-        dialog.setWindowTitle(self.tr("Project Creation Dialog"))
-
-        layout = QtGui.QVBoxLayout()
-
-        #The dialog description
-        label = QtGui.QLabel("Create a new project.")
-        layout.addWidget(label)
-
-        #The name input
-        nameLayout = QtGui.QHBoxLayout()
-        nameLabel = QtGui.QLabel(self.tr("Project Name : "))
-        nameLayout.addWidget(nameLabel)
-        nameInput = QtGui.QLineEdit()
-        nameInput.setStatusTip(self.tr("Enter a name for the new project"))
-        self.connect(nameInput, QtCore.SIGNAL("textChanged()"), nameInput, QtCore.SLOT("setText()"))
-        nameLayout.addWidget(nameInput)
-        layout.addLayout(nameLayout)
-
-        #The directory input
-        directoryLayout = QtGui.QHBoxLayout()
-        directoryLabel = QtGui.QLabel(self.tr("Location : "))
-        directoryLayout.addWidget(directoryLabel)
-        directoryInput = QtGui.QLineEdit()
-        directoryInput.setStatusTip(self.tr("Choose a directory for the new project"))
-        self.connect(directoryInput, QtCore.SIGNAL("textChanged()"), directoryInput, QtCore.SLOT("setText()"))
-        directoryLayout.addWidget(directoryInput)
-        layout.addLayout(directoryLayout)
-
-        #Buttons
-        buttonsLayout = QtGui.QHBoxLayout()
-        cancelButton = QtGui.QPushButton(self.tr("Cancel"))
-        self.connect(cancelButton, QtCore.SIGNAL("clicked()"), dialog, QtCore.SLOT("reject()"))
-        buttonsLayout.addWidget(cancelButton)
-        okButton = QtGui.QPushButton(self.tr("OK"))
-        self.connect(okButton, QtCore.SIGNAL("clicked()"), dialog, QtCore.SLOT("accept()"))
-        buttonsLayout.addWidget(okButton)
-        layout.addLayout(buttonsLayout)
-
-        dialog.setLayout(layout)
-
-        self.connect(dialog, QtCore.SIGNAL("accepted()"), self, QtCore.SLOT("gatherCreationDialogInfo()"))
-
-        dialog.exec_()
-
-    def gatherCreationDalogInfo(self):
-        print 'plop'
-        #name = nameInput.text()
-        #path = directoryInput.text()
-
-        #self._controller.createNewProject(name, path)
+        dialog = NewProjectDialog()
 
     def openProject(self):
         """ Forward the importation of a new project to the controller. """
