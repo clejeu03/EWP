@@ -151,4 +151,5 @@ class NewProjectDialog(QtGui.QDialog):
     def browse(self):
         """ Open a file dialog to browse the existing directories and report the name of the selected one in the correct input """
 
-        #TODO
+        fileBrowser = QtGui.QFileDialog.getExistingDirectory(self, str(self.tr("Choose a folder")), "/home/cecilia/")
+        self.directoryInput.setText(str(fileBrowser))
