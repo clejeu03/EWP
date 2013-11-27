@@ -86,6 +86,9 @@ class MainWindow(QtGui.QMainWindow):
         self.fileMenu.addAction(self.openProjectAction)
         self.fileMenu.addAction(self.saveProjectAction)
 
+        self.projectMenu = self.menuBar().addMenu(self.tr("&Project"))
+        self.projectMenu.addAction(self.importVideoAction)
+
         self.helpMenu = self.menuBar().addMenu(self.tr("&Help"))
         self.helpMenu.addAction(self.aboutAction)
 
@@ -95,21 +98,25 @@ class MainWindow(QtGui.QMainWindow):
         """
         self.createProjectAction = QtGui.QAction(self.tr("&New Project"), self)
         self.createProjectAction.setShortcut(QtGui.QKeySequence.New)
-        self.setStatusTip(self.tr("Create a new project"))
+        self.createProjectAction.setStatusTip(self.tr("Create a new project"))
         self.connect(self.createProjectAction, QtCore.SIGNAL("triggered()"), self, QtCore.SLOT("newProject()"))
 
         self.openProjectAction = QtGui.QAction(self.tr("&Open..."), self)
         self.openProjectAction.setShortcut(QtGui.QKeySequence.Open)
-        self.setStatusTip(self.tr("Open an existing project"))
+        self.openProjectAction.setStatusTip(self.tr("Open an existing project"))
         self.connect(self.openProjectAction, QtCore.SIGNAL("triggered()"), self, QtCore.SLOT("openProject()"))
 
         self.saveProjectAction = QtGui.QAction(self.tr("&Save"), self)
         self.saveProjectAction.setShortcut(QtGui.QKeySequence.Save)
-        self.setStatusTip(self.tr("Save the current project"))
+        self.saveProjectAction.setStatusTip(self.tr("Save the current project"))
         self.connect(self.saveProjectAction, QtCore.SIGNAL("triggered()"), self, QtCore.SLOT("save()"))
 
+        self.importVideoAction = QtGui.QAction(self.tr("&Import video..."), self)
+        self.importVideoAction.setStatusTip(self.tr("Import a video into your project"))
+        self.connect(self.importVideoAction, QtCore.SIGNAL("triggered()"), self, QtCore.SLOT("importVideo()"))
+
         self.aboutAction = QtGui.QAction(self.tr("&About"), self)
-        self.setStatusTip(self.tr("Show the credits and authors"))
+        self.aboutAction.setStatusTip(self.tr("Show the credits and authors"))
         self.connect(self.aboutAction, QtCore.SIGNAL("triggered()"), self, QtCore.SLOT("showAbout()"))
 
 
