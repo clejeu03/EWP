@@ -84,10 +84,10 @@ class MainWindow(QtGui.QMainWindow):
         self.fileMenu = self.menuBar().addMenu(self.tr("&File"))
         self.fileMenu.addAction(self.createProjectAction)
         self.fileMenu.addAction(self.openProjectAction)
+        self.fileMenu.addSeparator()
+        self.fileMenu.addAction(self.importVideoAction)
+        self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.saveProjectAction)
-
-        self.projectMenu = self.menuBar().addMenu(self.tr("&Project"))
-        self.projectMenu.addAction(self.importVideoAction)
 
         self.helpMenu = self.menuBar().addMenu(self.tr("&Help"))
         self.helpMenu.addAction(self.aboutAction)
@@ -150,7 +150,9 @@ class MainWindow(QtGui.QMainWindow):
 
     def importVideo(self):
         """ Open a QWizard to help the user choose and import a video  """
-        #TODO
+        path, filter = QtGui.QFileDialog.getOpenFileNames(self, str(self.tr("Import a video")), "/home/cecilia/", self.tr("Video files (*.avi *.mov)"))
+        videoPath = path[0].encode("utf-8")
+        self._controller.importVideo(videoPath)
 
     def update(self):
         self._sessionView.update()

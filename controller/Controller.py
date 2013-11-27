@@ -39,12 +39,17 @@ class Controller(object):
             self._session.newProject(name, projectPath)
             self._mainWindow.update()
 
-    def importVideo(self):
+    def importVideo(self, path):
         """
         Open a dialog for the user to choose a video to import into the current project,
         then copy the video into the project folder and create the Video class corresponding.
+        :param path: the path of the video to be imported in the current project
+        :type path: string
         """
-        path = "/home/cecilia/Vidéos/Big_buck_bunny.avi"
+        #path = "/home/cecilia/Vidéos/Big_buck_bunny.avi"
+
+        print "path" + str(path)
+
         name = os.path.basename(path)
 
         #TODO : dialog
@@ -55,6 +60,9 @@ class Controller(object):
 
         #Create the video class
         self._session.currentProject().addVideo(videoProjectPath + os.sep + name)
+
+        #Update the view
+        self._mainWindow.update()
 
     def suppressVideo(self, video):
         """
