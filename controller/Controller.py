@@ -46,20 +46,15 @@ class Controller(object):
         :param path: the path of the video to be imported in the current project
         :type path: string
         """
-        #path = "/home/cecilia/Vidéos/Big_buck_bunny.avi"
-
-        print "path" + str(path)
-
         name = os.path.basename(path)
-
-        #TODO : dialog
 
         #Copy the video file
         videoProjectPath = self._session.currentProject().getPath() + os.sep + "Video Files"
         shutil.copy(path, videoProjectPath)
 
         #Create the video class
-        self._session.currentProject().addVideo(videoProjectPath + os.sep + name)
+        if copyState:
+            self._session.currentProject().addVideo(videoProjectPath + os.sep + name)
 
         #Update the view
         self._mainWindow.update()

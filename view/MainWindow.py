@@ -76,6 +76,11 @@ class MainWindow(QtGui.QMainWindow):
         rightDockWidget.setFeatures(QtGui.QDockWidget.DockWidgetMovable | QtGui.QDockWidget.DockWidgetClosable)
         self.addDockWidget(QtCore.Qt.RightDockWidgetArea, rightDockWidget)
 
+    def initStatusBar(self):
+        """ Initialize the status bar of the main window """
+        self.statusBar().showMessage(self.tr("Ready"))
+
+
 
     def initMenu(self):
         """
