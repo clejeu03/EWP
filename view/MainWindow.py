@@ -148,6 +148,10 @@ class MainWindow(QtGui.QMainWindow):
         #TODO
         pass
 
+    def importVideo(self):
+        """ Open a QWizard to help the user choose and import a video  """
+        #TODO
+
     def update(self):
         self._sessionView.update()
 
