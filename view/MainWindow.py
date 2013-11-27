@@ -27,6 +27,7 @@ class MainWindow(QtGui.QMainWindow):
         self.loadStyleSheet()
         self.createAction()
         self.initMenu()
+        self.initStatusBar()
         self.initView()
 
     def loadStyleSheet(self, styleFile=None):
@@ -79,7 +80,6 @@ class MainWindow(QtGui.QMainWindow):
     def initStatusBar(self):
         """ Initialize the status bar of the main window """
         self.statusBar().showMessage(self.tr("Ready"))
-
 
 
     def initMenu(self):
@@ -140,8 +140,9 @@ class MainWindow(QtGui.QMainWindow):
 
     def openProject(self):
         """ Forward the importation of a new project to the controller. """
-        #TODO
-        pass
+        path, filter = QtGui.QFileDialog.getOpenFileNames(self, str(self.tr("Open a project")), "/home/cecilia/", self.tr("EWP project (*.ewp)"))
+        savedPath = path[0].encode("utf-8")
+        self._controller.loadSavedFile(savedPath)
 
     def showAbout(self):
         """ Show a popup window with authors and credits """
@@ -150,8 +151,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def save(self):
         """ Save the current project in its state """
-        #TODO
-        pass
+        self._controller.saveCurrentSession()
 
     def importVideo(self):
         """ Open a QWizard to help the user choose and import a video  """

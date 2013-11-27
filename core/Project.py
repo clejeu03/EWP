@@ -41,7 +41,9 @@ class Project(object):
 
     def __str__(self):
         #String representation of the class
-        return 'Project => name : ' + str(self._name) + ' / path : ' + str(self._path) + ' / videos : ' + str(len(self._videos))
+        describe = 'Project => name : ' + str(self._name) + ' / path : ' + str(self._path) + ' / videos : ' + str(len(self._videos))
+        video = str(self._videos[0])
+        return describe + video
 
     def __eq__(self, other):
         #Stands for the == compare

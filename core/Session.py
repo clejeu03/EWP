@@ -27,13 +27,19 @@ class Session(object):
         """
         project = Project(name, path)
 
-        #Create the project save file
-        try:
-            open(os.path.join(path, str(name)+".ewp"), "w")
-        except IOError:
-            pass
+        self.openProject(project)
+
+    def openProject(self, project):
+        """
+        Create a Project.
+        :param name : the name of the Project
+        :param path: the absolute path of the Project
+        :type name: str
+        :type path: str
+        """
         self._projectsList.append(project)
         self.addToRecentProjects(project)
+
 
     def addToRecentProjects(self, project):
         """

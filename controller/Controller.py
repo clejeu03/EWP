@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from core.Session import Session
-from PySide import QtCore
+import pickle
 import shutil
 import os
 
@@ -36,6 +36,13 @@ class Controller(object):
             projectPath = path + os.sep + name
             os.mkdir(projectPath)
             os.mkdir(projectPath + os.sep + "Video Files")
+
+            #Create the project save file
+            try:
+                open(os.path.join(projectPath + os.sep + str(name) +".ewp"), "w")
+            except IOError:
+                pass
+
             self._session.newProject(name, projectPath)
             self._mainWindow.update()
 
@@ -53,8 +60,7 @@ class Controller(object):
         shutil.copy(path, videoProjectPath)
 
         #Create the video class
-        if copyState:
-            self._session.currentProject().addVideo(videoProjectPath + os.sep + name)
+        self._session.currentProject().addVideo(videoProjectPath + os.sep + name)
 
         #Update the view
         self._mainWindow.update()
@@ -76,8 +82,24 @@ class Controller(object):
         self._mainWindow.update()
 
     def saveCurrentSession(self):
-        #TODO : use pickle module for serilization
-        pass
+        """ Serialization of the core module using pickle """
+        name = self._session.currentProject().getName()
+        path = self._session.currentProject().getPath() + os.sep + str(name) + ".ewp"
+        print "Save : " + str(self._session.currentProject())
+        pickle.dump(self._session.currentProject(), open(path, "wb"))
+
+    def loadSavedFile(self, path):
+        """
+        Load the file at the given path using pickle module to recreate the classes
+        :param path: the path of the save file
+        :type path : string
+        """
+        result = pickle.load(open(path, "rb"))
+        print "load : " + str(result)
+
+        self._session.openProject(result)
+
+        self._mainWindow.update()
 
     def initSession(self):
         self._session = Session()
