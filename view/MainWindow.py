@@ -89,6 +89,14 @@ class MainWindow(QtGui.QMainWindow):
         self.fileMenu = self.menuBar().addMenu(self.tr("&File"))
         self.fileMenu.addAction(self.createProjectAction)
         self.fileMenu.addAction(self.openProjectAction)
+
+        #TODO : problem displaying submenu
+        #self.recentMenu = self.fileMenu.addMenu(self.tr("Open &recent"))
+        #for recentProject in self._controller.getSession().recentProjects():
+            #recentAction = QtGui.QAction(self.tr(str(recentProject.getPath())), self)
+            #self.connect(recentAction, QtCore.SIGNAL("triggered()"), self, QtCore.SLOT("openRecent(recentProject.getPath())"))
+            #self.recentMenu.addAction(recentAction)
+
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.importVideoAction)
         self.fileMenu.addSeparator()
