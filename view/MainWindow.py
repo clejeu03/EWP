@@ -136,7 +136,8 @@ class MainWindow(QtGui.QMainWindow):
     def newProject(self):
         """ Forward the creation of a new project to the controller. """
         dialog = NewProjectDialog()
-        self._controller.createNewProject(str(dialog.name), str(dialog.path))
+        if not dialog.name is None and not dialog.path is None:
+            self._controller.createNewProject(str(dialog.name), str(dialog.path))
 
     def openProject(self):
         """ Forward the importation of a new project to the controller. """
