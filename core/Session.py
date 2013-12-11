@@ -50,9 +50,6 @@ class Session(object):
             self._recentProjects.pop()
         self._recentProjects.append(project)
 
-    def addProjectFile(self, path):
-        #TODO
-        pass
 
     def closeProject(self, project):
         """

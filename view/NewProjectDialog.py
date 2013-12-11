@@ -35,7 +35,7 @@ class NewProjectDialog(QtGui.QDialog):
     def initView(self):
         """ Set up the main layout of the dialog """
 
-        #TODO : grid layout
+        #TODO : change to grid layout
 
         self.layout = QtGui.QVBoxLayout()
 

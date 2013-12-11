@@ -78,6 +78,12 @@ class SessionView(QtGui.QStackedWidget) :
         self.connect(suppressAction, QtCore.SIGNAL("triggered()"), self, QtCore.SLOT("suppressVideo()"))
         item.addAction(suppressAction)
 
+        #Creation of the play video action
+        playAction = QtGui.QAction(self.tr("&Play"), self)
+        playAction.setStatusTip(self.tr("Play this video in a new window"))
+        self.connect(playAction, QtCore.SIGNAL("triggered()"), self, QtCore.SLOT("playVideo()"))
+        item.addAction(playAction)
+
         layout = QtGui.QHBoxLayout()
 
         #Draw the snapshot
@@ -110,6 +116,11 @@ class SessionView(QtGui.QStackedWidget) :
         #Retrieve the current selected item of the session view.
         video = self.list.currentItem().data(QtCore.Qt.UserRole)
         self._controller.suppressVideo(video)
+
+    def playVideo(self):
+        """ This function forward to the controller a call to play the selected video in a new player window   """
+        video = self.list.currentIndex().data(QtCore.Qt.UserRole)
+        self._controller.playVideo(video)
 
     def update(self):
         """ Update the view with the model data"""

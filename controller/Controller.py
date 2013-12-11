@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from core.Session import Session
+from view.Player import Player
 import pickle
 import shutil
 import os
@@ -13,7 +14,7 @@ class Controller(object):
 
         self._mainWindow = None
         self._session = None
-
+        self.player = Player()
 
         self.initSession()
 
@@ -100,6 +101,11 @@ class Controller(object):
         self._session.openProject(result)
 
         self._mainWindow.update()
+
+    def playVideo(self, video):
+        """ Open the video in a new window to play it  """
+
+        self.player.play(video)
 
     def initSession(self):
         self._session = Session()

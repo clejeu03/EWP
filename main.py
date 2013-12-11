@@ -19,7 +19,7 @@ controller = Controller()
 mainWindow = MainWindow(controller)
 controller.setMainWindow(mainWindow)
 
-if not mainWindow is None:
+if mainWindow :
     mainWindow.show()
 
 sys.exit(app.exec_())

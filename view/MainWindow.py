@@ -137,6 +137,9 @@ class MainWindow(QtGui.QMainWindow):
         """Before really closing, store the preferences of the user and change the _aboutToClose value."""
         settings = QtCore.QSettings("Cecilia", "EWP")
         settings.setValue("geometry", self.saveGeometry())
+
+        print "children : " + str(self.children())
+
         super(MainWindow, self).closeEvent(event)
 
     # ------------------------ SIGNAL / SLOTS HANDLER ---------------- #
@@ -155,7 +158,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def showAbout(self):
         """ Show a popup window with authors and credits """
-        #TODO
+        #TODO : prepare a window for the about / credits mention
         pass
 
     def save(self):
