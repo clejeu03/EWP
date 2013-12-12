@@ -4,6 +4,7 @@
 from PySide import QtGui, QtCore
 import cv2
 import numpy as np
+import math
 from view.PlayerSlider import PlayerSlider
 
 class Player(QtGui.QWidget):
@@ -41,11 +42,23 @@ class Player(QtGui.QWidget):
         #The controls are composed of the play/pause button, of the slider and of a time label
         controlLayout = QtGui.QHBoxLayout()
 
+        #Button previous frame
+        prevFrameButton = QtGui.QPushButton("--")
+        prevFrameButton.setFixedWidth(30)
+        self.connect(prevFrameButton, QtCore.SIGNAL("clicked()"), self, QtCore.SLOT("previousFrame()"))
+        controlLayout.addWidget(prevFrameButton)
+
         #Button Play/Pause
         playPauseButton = QtGui.QPushButton("play / pause ")
         playPauseButton.setFixedWidth(30)
         self.connect(playPauseButton, QtCore.SIGNAL("clicked()"), self, QtCore.SLOT("playPauseTrigger()"))
         controlLayout.addWidget(playPauseButton)
+
+        #Button next frame
+        nextFrameButton = QtGui.QPushButton("++")
+        nextFrameButton.setFixedWidth(30)
+        self.connect(nextFrameButton, QtCore.SIGNAL("clicked()"), self, QtCore.SLOT("nextFrame()"))
+        controlLayout.addWidget(nextFrameButton)
 
         #Slider
         self.slider = PlayerSlider(self)
@@ -95,6 +108,39 @@ class Player(QtGui.QWidget):
         """
         self.capture.set(0,value*1000)
         self.displayTime(value)
+
+    @QtCore.Slot()
+    def previousFrame(self):
+        """
+        Stop the displaying of the video to show frame after frame
+        """
+        if self.playStatus is True:
+            self.playPauseTrigger()
+
+        #Retrieve the capture characteristics
+        pos = self.capture.get(1)
+
+        #Update the video
+        self.capture.set(1, pos - 2)
+        value, frame = self.capture.read()
+        if value:
+            self.showFrame(frame)
+
+    @QtCore.Slot()
+    def nextFrame(self):
+        """
+        Stop the displaying of the video to show frame after frame
+        """
+        if self.playStatus is True:
+            self.playPauseTrigger()
+
+        #Retrieve the capture characteristics
+        pos = self.capture.get(1)
+        #Update the video
+        self.capture.set(1, pos + 1)
+        value, frame = self.capture.read()
+        if value:
+            self.showFrame(frame)
 
     def showFrame(self, frame):
         """ This function must be call regularly in order to update the video frame currently shown  """
