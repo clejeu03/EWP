@@ -17,59 +17,57 @@ class Player(QtGui.QWidget):
         self.title = None
         self.capture = None
         self.playStatus = False
-        self.label = None
+        self.label = QtGui.QLabel()
 
 
     def init(self):
         """ Draw the layout of the widget and prepare the video  """
 
-        #The controls ares composed of the play/pause button and of the slider
-        controlLayout = QtGui.QHBoxLayout()
-
-        #The video view
-        capture = cv2.VideoCapture(self.video.getPath())
-
-        self.label = QtGui.QLabel()
-        value, frame = capture.read()
-        print "value : " + str(value)
-        while value:
-            self.showFrame(frame)
-            count = capture.get(1)
-            print "count : " + str(count)
-            value, frame = capture.read()
-
         layout  = QtGui.QVBoxLayout()
+
+        #Create a capture from the video
+        self.capture = cv2.VideoCapture(self.video.getPath())
+        value, frame = self.capture.read()
+        #Show the first frame of the video
+        if value:
+            self.showFrame(frame)
+
         layout.addWidget(self.label)
+
+        #The controls are composed of the play/pause button and of the slider
+        #controlLayout = QtGui.QHBoxLayout()
         #layout.addLayout(controlLayout)
 
         self.setLayout(layout)
         self.playStatus = True
 
-
     def showFrame(self, frame):
-        """ This function must be call regurlarly in order to update the video frame currently shown  """
-
+        """ This function must be call regularly in order to update the video frame currently shown  """
         qImage = self.toQImage(frame)
         pixmap = QtGui.QPixmap().fromImage(qImage)
         self.label.setPixmap(pixmap)
 
-    def timerEvent(self, *args, **kwargs):
+    def play(self, video):
+        """ Start a new window to play the selected video  """
+        self.video = video
+        self.show()
+        self.init()
+        self.timerId = self.startTimer(41.666)
+
+    def pause(self):
+        pass
+
+    # --------------------------- EVENT HANDLERS ---------------------------- #
+    def closeEvent(self, event):
+        """ On close event, the timer must stop if it's not already  """
+        self.killTimer(self.timerId)
+
+    def timerEvent(self, event):
         """ Override the QObject method to call a function periodically """
         value, frame = self.capture.read()
         if value:
             self.showFrame(frame)
             count = self.capture.get(1)
-            print "count : " + str(count)
-
-    def play(self, video):
-        """ Start a new window to play the selected video  """
-        self.video = video
-        self.init()
-        #self.timerId = self.startTimer(41.666)
-        self.show()
-
-    def pause(self):
-        pass
 
     # --------------------------- CONVERSIONS FUNCTION --------------------------- #
     def toQImage(self, im, copy=False):

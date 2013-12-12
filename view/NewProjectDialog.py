@@ -52,7 +52,7 @@ class NewProjectDialog(QtGui.QDialog):
         #The name input
         self.nameInput = QtGui.QLineEdit()
         self.nameInput.setFocus()
-        self.nameInput.setMaxLength(10)
+        self.nameInput.setMaxLength(20)
 
         rx = QtCore.QRegExp("\w*")
         validator = QtGui.QRegExpValidator(rx, self)

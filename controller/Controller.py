@@ -36,7 +36,7 @@ class Controller(object):
             #Create the directory for the project and fill
             projectPath = path + os.sep + name
             os.mkdir(projectPath)
-            os.mkdir(projectPath + os.sep + "Video Files")
+            os.mkdir(projectPath + os.sep + "VideoFiles")
 
             #Create the project save file
             try:
@@ -57,7 +57,7 @@ class Controller(object):
         name = os.path.basename(path)
 
         #Copy the video file
-        videoProjectPath = self._session.currentProject().getPath() + os.sep + "Video Files"
+        videoProjectPath = self._session.currentProject().getPath() + os.sep + "VideoFiles"
         shutil.copy(path, videoProjectPath)
 
         #Create the video class
@@ -71,7 +71,7 @@ class Controller(object):
         Suppress a video from the project directory and forward the instructions to the current project
         """
         #List all the videos contained into the video files folder of the project directory
-        videoList = os.listdir(self._session.currentProject().getPath() + os.sep + "Video Files")
+        videoList = os.listdir(self._session.currentProject().getPath() + os.sep + "VideoFiles")
 
         #When the name matches, then suppress the video file corresponding
         for item in videoList:
