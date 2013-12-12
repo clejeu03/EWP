@@ -155,8 +155,26 @@ class MainWindow(QtGui.QMainWindow):
 
     def showAbout(self):
         """ Show a popup window with authors and credits """
-        #TODO : prepare a window for the about / credits mention
-        pass
+        about = QtGui.QWidget()
+
+        layout = QtGui.QVBoxLayout()
+
+        labelTitle = QtGui.QLabel("Electronic Wallpaper 2.0")
+        layout.addWidget(labelTitle)
+
+        labelDescription = QtGui.QLabel("This software is designed to create new video editing experience. Etc...")
+        layout.addWidget(labelDescription)
+
+        labelContact = QtGui.QLabel("For any question please contact : cecilia.lejeu@gmail.com")
+        layout.addWidget(labelContact)
+
+        layout.setStretchFactor(labelTitle, 3)
+        layout.setStretchFactor(labelDescription, 1)
+        layout.setStretchFactor(labelContact, 3)
+
+        about.setLayout(layout)
+        about.show()
+
 
     def save(self):
         """ Save the current project in its state """

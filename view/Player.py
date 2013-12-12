@@ -186,6 +186,7 @@ class Player(QtGui.QWidget):
         if value:
             self.showFrame(frame)
 
+
     # --------------------------- CONVERSIONS FUNCTION --------------------------- #
     def toQImage(self, im, copy=False):
         """ Conversion from a numpy array to a QImage """
