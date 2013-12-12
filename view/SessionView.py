@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from PySide import QtGui, QtCore
+from view.SessionViewItem import SessionViewItem
 
 class SessionView(QtGui.QStackedWidget) :
 
@@ -59,57 +60,6 @@ class SessionView(QtGui.QStackedWidget) :
 
         return widget
 
-    def drawListItemWidget(self, video):
-        """
-        This function create the ListItemWidget contained by the ListViewWidget of the SessionView
-        :param video: the video targeted in the current project
-        :type video: class Video
-        :return type: QListWidgetItem
-        """
-        item = QtGui.QWidget()
-        item.setObjectName("ItemWidget")
-
-        #Enabling the context menu with actions
-        item.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
-
-        #Creation of a context menu action to suppress the clicked item
-        suppressAction = QtGui.QAction(self.tr("&Delete"), self)
-        suppressAction.setStatusTip(self.tr("Remove the video from the project"))
-        self.connect(suppressAction, QtCore.SIGNAL("triggered()"), self, QtCore.SLOT("suppressVideo()"))
-        item.addAction(suppressAction)
-
-        #Creation of the play video action
-        playAction = QtGui.QAction(self.tr("&Play"), self)
-        playAction.setStatusTip(self.tr("Play this video in a new window"))
-        self.connect(playAction, QtCore.SIGNAL("triggered()"), self, QtCore.SLOT("playVideo()"))
-        item.addAction(playAction)
-
-        layout = QtGui.QHBoxLayout()
-
-        #Draw the snapshot
-        thumbnail = QtGui.QPixmap(video.getThumbnail())
-        reduceThumbnail = thumbnail.scaledToHeight(30)
-        picture = QtGui.QLabel()
-        picture.setPixmap(reduceThumbnail)
-        layout.addWidget(picture)
-
-        #Display the title
-        title = QtGui.QLabel(video.getName())
-        layout.addWidget(title)
-
-        #Display the duration of the video
-        duration = QtGui.QLabel(video.computeDuration())
-        layout.addWidget(duration)
-
-        #Set spacing
-        layout.setStretchFactor(picture, 2)
-        layout.setStretchFactor(title, 4)
-        layout.setStretchFactor(duration, 1)
-
-        item.setLayout(layout)
-
-        return item
-
     def suppressVideo(self):
         """ This function calls the controller function to suppress physically the video from the project directory nd to clean up the project data"""
 
@@ -145,7 +95,7 @@ class SessionView(QtGui.QStackedWidget) :
                     #Prepare the view of each item in the project
                     listItem = QtGui.QListWidgetItem()
                     listItem.setData(QtCore.Qt.UserRole, video)
-                    itemWidget = self.drawListItemWidget(video)
+                    itemWidget = SessionViewItem(video, self)
                     self.list.addItem(listItem)
                     self.list.setItemWidget(listItem, itemWidget)
 
