@@ -18,10 +18,6 @@ class Controller(object):
 
         self.initSession()
 
-        #Temporary !
-        #self.createNewProject()
-        #self.importVideo()
-
 
     def createNewProject(self, name, path):
         """ Create a new Project by choosing a directory for saving it """
@@ -105,7 +101,7 @@ class Controller(object):
     def playVideo(self, video):
         """ Open the video in a new window to play it  """
 
-        self.player.play(video)
+        self.player.start(video)
 
     def initSession(self):
         self._session = Session()

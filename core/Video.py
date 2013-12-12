@@ -74,6 +74,7 @@ class Video(object):
     def computeDuration(self):
         """
         Determine the format of the duration, whever the hours are usefull or not, and return a string as a convenience container.
+        :rtype: String
         """
 
         minutes = math.trunc(math.floor(self._duration / 60))

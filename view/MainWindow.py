@@ -137,9 +137,6 @@ class MainWindow(QtGui.QMainWindow):
         """Before really closing, store the preferences of the user and change the _aboutToClose value."""
         settings = QtCore.QSettings("Cecilia", "EWP")
         settings.setValue("geometry", self.saveGeometry())
-
-        print "children : " + str(self.children())
-
         super(MainWindow, self).closeEvent(event)
 
     # ------------------------ SIGNAL / SLOTS HANDLER ---------------- #
