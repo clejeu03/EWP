@@ -3,6 +3,7 @@
 
 from core.Session import Session
 from view.Player import Player
+from view.TimelineView import TimelineView
 import pickle
 import shutil
 import os
@@ -41,6 +42,11 @@ class Controller(object):
                 pass
 
             self._session.newProject(name, projectPath)
+
+            #Prepare the timeline view and display it to the main window
+            timeline = TimelineView()
+            self._mainWindow.setTimeline(timeline)
+
             self._mainWindow.update()
 
     def importVideo(self, path):
