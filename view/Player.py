@@ -28,6 +28,7 @@ class Player(QtGui.QWidget):
         #Create a capture from the video
         self.capture = cv2.VideoCapture(self.video.getPath())
         value, frame = self.capture.read()
+
         #Show the first frame of the video
         if value:
             self.showFrame(frame)
@@ -77,16 +78,14 @@ class Player(QtGui.QWidget):
 
         gray_color_table = [QtGui.qRgb(i, i, i) for i in range(256)]
 
-        if im.dtype == np.uint8:
-            if len(im.shape) == 2:
-                qim = QtGui.QImage(im.data, im.shape[1], im.shape[0], im.strides[0], QtGui.QImage.Format_Indexed8)
-                qim.setColorTable(gray_color_table)
-                return qim.copy() if copy else qim
-
-            elif len(im.shape) == 3:
-                if im.shape[2] == 3:
-                    qim = QtGui.QImage(im.data, im.shape[1], im.shape[0], im.strides[0], QtGui.QImage.Format_RGB888);
-                    return qim.copy() if copy else qim
-                elif im.shape[2] == 4:
-                    qim = QtGui.QImage(im.data, im.shape[1], im.shape[0], im.strides[0], QtGui.QImage.Format_ARGB32);
-                    return qim.copy() if copy else qim
+        if im.dtype == np.uint8 and len(im.shape) == 3:
+            print 'plop3'
+            qim = QtGui.QImage(im.data, im.shape[1], im.shape[0], im.strides[0], QtGui.QImage.Format_RGB888)
+            return qim.rgbSwapped().copy() if copy else qim.rgbSwapped()
+        elif im.dtype == np.uint8 and len(im.shape) == 1:
+            print 'plop1'
+            qim = QtGui.QImage(im.data, im.shape[1], im.shape[0], im.strides[0], QtGui.QImage.Format_Indexed8)
+            qim.setColorTable(gray_color_table)
+            return qim.copy() if copy else qim
+        else :
+            raise RuntimeError("Player : cannot convert frame to QImage.")
