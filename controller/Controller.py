@@ -3,7 +3,8 @@
 
 from core.Session import Session
 from view.Player import Player
-from view.TimelineView import TimelineView
+from view.SketchBoardView import SketchBoardView
+from core.SketchBoard import SketchBoard
 import pickle
 import shutil
 import os
@@ -15,6 +16,7 @@ class Controller(object):
 
         self._mainWindow = None
         self._session = None
+        self._sketchBoard = None
         self.player = Player()
 
         self.initSession()
@@ -44,8 +46,9 @@ class Controller(object):
             self._session.newProject(name, projectPath)
 
             #Prepare the timeline view and display it to the main window
-            timeline = TimelineView()
-            self._mainWindow.setTimeline(timeline)
+            self._sketchBoard = SketchBoard()
+            sketchBoardView = SketchBoardView()
+            self._mainWindow.setSketchBoardView(sketchBoardView)
 
             self._mainWindow.update()
 

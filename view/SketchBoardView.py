@@ -3,10 +3,10 @@
 
 from PySide import QtGui, QtCore
 
-class TimelineView (QtGui.QWidget):
+class SketchBoardView (QtGui.QWidget):
 
     def __init__(self):
-        super(TimelineView, self).__init__()
+        super(SketchBoardView, self).__init__()
 
     def update(self):
         pass

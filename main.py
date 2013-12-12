@@ -19,7 +19,7 @@ controller = Controller()
 mainWindow = MainWindow(controller)
 controller.setMainWindow(mainWindow)
 
-controller.loadSavedFile("/home/cecilia/Documents/ProjectTest/ProjectTest.ewp")
+#controller.loadSavedFile("/home/cecilia/Documents/ProjectTest/ProjectTest.ewp")
 
 if mainWindow :
     mainWindow.show()

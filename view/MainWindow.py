@@ -18,7 +18,7 @@ class MainWindow(QtGui.QMainWindow):
 
         #Main Widgets
         self._sessionView = None
-        self._timelineView = None
+        self._sketchBoardView = None
 
         #Restore the users parameters
         settings = QtCore.QSettings("Cecilia", "EWP")
@@ -197,9 +197,9 @@ class MainWindow(QtGui.QMainWindow):
 
     #------------------------ GETTER / SETTER ------------------------ #
 
-    def setTimelineView(self, timelineView):
-        self._timelineView = timelineView
-        bottomDockWidget = QtGui.QDockWidget(self.tr("Timeline"), self)
+    def setTimelineView(self, sketchBoardView):
+        self._sketchBoardView = sketchBoardView
+        bottomDockWidget = QtGui.QDockWidget(self.tr("SketchBoard"), self)
         bottomDockWidget.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea | QtCore.Qt.TopDockWidgetArea)
         bottomDockWidget.setWidget(self._timelineView)
         bottomDockWidget.setFeatures(QtGui.QDockWidget.DockWidgetMovable | QtGui.QDockWidget.DockWidgetClosable)
@@ -208,5 +208,5 @@ class MainWindow(QtGui.QMainWindow):
     def getSessionView(self):
         return self._sessionView
 
-    def getTimelineView(self):
-        return self._timelineView
+    def getSketchBoardView(self):
+        return self._sketchBoardView
