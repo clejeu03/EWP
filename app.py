@@ -22,6 +22,18 @@ class App(object):
         self._session = Session()
         self._iomodule = IOModule(self)
 
+    def createProject(self, name, path):
+        """ Create a new project by forwarding the creation of folder to IOModule and the creation of the model to the core session manager  """
+        projectPath = self._iomodule.createNewProjectDir(name, path)
+        self._session.newProject(name, projectPath)
+        self.update()
+
+    def importVideo(self, path):
+        self._iomodule.importVideo(path)
+
+    def save(self):
+        self._iomodule.saveCurrent()
+
     def update(self):
         """ When a changes happened in the core model, then the view need to be updated. That's the purpose of this function.  """
         self._mainWindow.update()
@@ -33,4 +45,8 @@ class App(object):
 
     def setMainWindow(self, mainWindow):
         self._mainWindow = mainWindow
+
+    def getIOModule(self):
+        return self._iomodule
+
 

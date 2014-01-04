@@ -145,14 +145,12 @@ class MainWindow(QtGui.QMainWindow):
         """ Forward the creation of a new project to the application. """
         dialog = NewProjectDialog()
         if not dialog.name is None and not dialog.path is None:
-            #TODO : refactoring
-            self._app.createNewProject(str(dialog.name), str(dialog.path))
+            self._app.createProject(str(dialog.name), str(dialog.path))
 
     def openProject(self):
         """ Forward the importation of a new project to the application. """
         path, filter = QtGui.QFileDialog.getOpenFileNames(self, str(self.tr("Open a project")), "/home/cecilia/", self.tr("EWP project (*.ewp)"))
         savedPath = path[0].encode("utf-8")
-        #TODO : refactoring
         self._app.loadSavedFile(savedPath)
 
     def showAbout(self):
@@ -180,14 +178,12 @@ class MainWindow(QtGui.QMainWindow):
 
     def save(self):
         """ Save the current project in its state """
-        #TODO : refactoring
-        self._app.saveCurrentSession()
+        self._app.save()
 
     def importVideo(self):
         """ Open a QWizard to help the user choose and import a video  """
         path, filter = QtGui.QFileDialog.getOpenFileNames(self, str(self.tr("Import a video")), "/home/cecilia/", self.tr("Video files (*.avi *.mov)"))
         videoPath = path[0].encode("utf-8")
-        #TODO : refactoring
         self._app.importVideo(videoPath)
 
     def update(self):
