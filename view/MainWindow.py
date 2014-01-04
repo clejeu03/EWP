@@ -10,8 +10,6 @@ class MainWindow(QtGui.QMainWindow):
     def __init__(self, app):
         super(MainWindow, self).__init__()
 
-        #TODO : change controller
-        #self._controller = controller
         self._app = app
         self.setWindowTitle('EWP')
 
@@ -56,7 +54,7 @@ class MainWindow(QtGui.QMainWindow):
         """ Draw the main docked widget of the mainWindow"""
 
         #Draw the Session View
-        self._sessionView = SessionView(self._controller)
+        self._sessionView = SessionView(self._app.getSession())
         leftDockWidget = QtGui.QDockWidget("Session", self)
         leftDockWidget.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
         leftDockWidget.setWidget(self._sessionView)
@@ -144,16 +142,18 @@ class MainWindow(QtGui.QMainWindow):
     # ------------------------ SIGNAL / SLOTS HANDLER ---------------- #
 
     def newProject(self):
-        """ Forward the creation of a new project to the controller. """
+        """ Forward the creation of a new project to the application. """
         dialog = NewProjectDialog()
         if not dialog.name is None and not dialog.path is None:
-            self._controller.createNewProject(str(dialog.name), str(dialog.path))
+            #TODO : refactoring
+            self._app.createNewProject(str(dialog.name), str(dialog.path))
 
     def openProject(self):
-        """ Forward the importation of a new project to the controller. """
+        """ Forward the importation of a new project to the application. """
         path, filter = QtGui.QFileDialog.getOpenFileNames(self, str(self.tr("Open a project")), "/home/cecilia/", self.tr("EWP project (*.ewp)"))
         savedPath = path[0].encode("utf-8")
-        self._controller.loadSavedFile(savedPath)
+        #TODO : refactoring
+        self._app.loadSavedFile(savedPath)
 
     def showAbout(self):
         """ Show a popup window with authors and credits """
@@ -180,13 +180,15 @@ class MainWindow(QtGui.QMainWindow):
 
     def save(self):
         """ Save the current project in its state """
-        self._controller.saveCurrentSession()
+        #TODO : refactoring
+        self._app.saveCurrentSession()
 
     def importVideo(self):
         """ Open a QWizard to help the user choose and import a video  """
         path, filter = QtGui.QFileDialog.getOpenFileNames(self, str(self.tr("Import a video")), "/home/cecilia/", self.tr("Video files (*.avi *.mov)"))
         videoPath = path[0].encode("utf-8")
-        self._controller.importVideo(videoPath)
+        #TODO : refactoring
+        self._app.importVideo(videoPath)
 
     def update(self):
         self._sessionView.update()

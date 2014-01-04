@@ -6,10 +6,11 @@ from view.SessionViewItem import SessionViewItem
 
 class SessionView(QtGui.QStackedWidget) :
 
-    def __init__(self, controller):
+    def __init__(self, app, session):
         super(SessionView, self).__init__()
 
-        self._controller = controller
+        self._app = app
+        self._model = session
 
         #Main elements
         self.list = None
@@ -25,7 +26,7 @@ class SessionView(QtGui.QStackedWidget) :
         self.addWidget(self.initListWidget())
 
         #Decide which widget the Session will display
-        if self._controller.getSession().currentProject() is None:
+        if self._model.currentProject() is None:
             self.setCurrentIndex(0)
         else:
             self.setCurrentIndex(1)
@@ -65,12 +66,14 @@ class SessionView(QtGui.QStackedWidget) :
 
         #Retrieve the current selected item of the session view.
         video = self.list.currentItem().data(QtCore.Qt.UserRole)
-        self._controller.suppressVideo(video)
+        #TODO : refactoring
+        self._app.suppressVideo(video)
 
     def playVideo(self):
         """ This function forward to the controller a call to play the selected video in a new player window   """
         video = self.list.currentIndex().data(QtCore.Qt.UserRole)
-        self._controller.playVideo(video)
+        #TODO : refactoring
+        self._app.playVideo(video)
 
     def update(self):
         """ Update the view with the model data"""
@@ -78,12 +81,12 @@ class SessionView(QtGui.QStackedWidget) :
         #TODO : check if the order of the video in the view is different before and after updating
 
         #Update the widget shown in the session view
-        if self._controller.getSession().currentProject() is None:
+        if self._model.currentProject() is None:
             self.setCurrentIndex(0)
         else:
             #Update the project title if it has changed
-            if self._controller.getSession().currentProject().getName() != self.title.text() :
-                self.title.setText(self._controller.getSession().currentProject().getName())
+            if self._model.currentProject().getName() != self.title.text() :
+                self.title.setText(self._model.currentProject().getName())
 
             #Update the list if it has changed
             if not self.list is None:
@@ -91,7 +94,7 @@ class SessionView(QtGui.QStackedWidget) :
                 self.list.clear()
 
                 #Create items according to those contained in the Project data
-                for video in self._controller.getSession().currentProject().getVideos():
+                for video in self._model.currentProject().getVideos():
                     #Prepare the view of each item in the project
                     listItem = QtGui.QListWidgetItem()
                     listItem.setData(QtCore.Qt.UserRole, video)
