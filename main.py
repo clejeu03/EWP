@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import os
 from PySide import QtGui
 
 from controller.Controller import Controller
@@ -19,7 +18,8 @@ controller = Controller()
 mainWindow = MainWindow(controller)
 controller.setMainWindow(mainWindow)
 
-#controller.loadSavedFile("/home/cecilia/Documents/ProjectTest/ProjectTest.ewp")
+#Temporary !
+controller.loadSavedFile("/home/cecilia/Documents/ProjectTest/ProjectTest.ewp")
 
 if mainWindow :
     mainWindow.show()
