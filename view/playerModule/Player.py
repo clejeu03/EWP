@@ -55,6 +55,7 @@ class Player(QtGui.QWidget):
         controlLayout.addWidget(playPauseButton)
 
         #Button next frame
+        #TODO : check if correctly connected to the time label
         nextFrameButton = QtGui.QPushButton("++")
         nextFrameButton.setFixedWidth(30)
         self.connect(nextFrameButton, QtCore.SIGNAL("clicked()"), self, QtCore.SLOT("nextFrame()"))
