@@ -73,7 +73,7 @@ class SessionView(QtGui.QStackedWidget) :
         """ This function forward to the controller a call to play the selected video in a new player window   """
         video = self.list.currentIndex().data(QtCore.Qt.UserRole)
         #TODO : refactoring
-        self._app.playVideo(video)
+        #self._app.playVideo(video)
 
     def update(self):
         """ Update the view with the model data"""
