@@ -57,9 +57,12 @@ class Video(object):
         capture.set(1, math.floor(frameCount/3))
 
         #Grab the frame
+        print "capture height : " + str(self._height)
         value,snapshot = capture.read()
         if value is True :
+            print str(self._simpleName)
             save = cv2.imwrite(str("data/"+ self._simpleName +".jpg"), snapshot)
+            print "save : " + str(save)
             if not save is True:
                 raise Exception("Error while saving a snapshot of the video : " + str(self._name))
             else :
