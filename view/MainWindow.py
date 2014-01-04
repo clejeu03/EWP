@@ -54,7 +54,7 @@ class MainWindow(QtGui.QMainWindow):
         """ Draw the main docked widget of the mainWindow"""
 
         #Draw the Session View
-        self._sessionView = SessionView(self._app.getSession())
+        self._sessionView = SessionView(self._app)
         leftDockWidget = QtGui.QDockWidget("Session", self)
         leftDockWidget.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
         leftDockWidget.setWidget(self._sessionView)

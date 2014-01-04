@@ -6,11 +6,11 @@ from view.SessionViewItem import SessionViewItem
 
 class SessionView(QtGui.QStackedWidget) :
 
-    def __init__(self, app, session):
+    def __init__(self, app):
         super(SessionView, self).__init__()
 
         self._app = app
-        self._model = session
+        self._model = app.getSession()
 
         #Main elements
         self.list = None
@@ -66,13 +66,12 @@ class SessionView(QtGui.QStackedWidget) :
 
         #Retrieve the current selected item of the session view.
         video = self.list.currentItem().data(QtCore.Qt.UserRole)
-        #TODO : refactoring
         self._app.suppressVideo(video)
 
     def playVideo(self):
         """ This function forward to the controller a call to play the selected video in a new player window   """
         video = self.list.currentIndex().data(QtCore.Qt.UserRole)
-        #TODO : refactoring
+        #TODO : refactoring go to SessionViewItem
         #self._app.playVideo(video)
 
     def update(self):

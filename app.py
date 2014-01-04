@@ -20,7 +20,11 @@ class App(object):
     def init(self):
         """ This function initialize all the components of the app class  """
         self._session = Session()
-        self._iomodule = IOModule()
+        self._iomodule = IOModule(self)
+
+    def update(self):
+        """ When a changes happened in the core model, then the view need to be updated. That's the purpose of this function.  """
+        self._mainWindow.update()
 
     # --------------------- GETTER / SETTER ---------------------- #
 
