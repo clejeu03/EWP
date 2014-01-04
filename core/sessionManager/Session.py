@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from core.Project import Project
+from core.sessionManager.Project import Project
 
 
 class Session(object):

@@ -3,7 +3,7 @@
 
 from PySide import QtGui, QtCore
 from view.SessionView import SessionView
-from view.NewProjectDialog import NewProjectDialog
+from view.dialogs.NewProjectDialog import NewProjectDialog
 
 class MainWindow(QtGui.QMainWindow):
 

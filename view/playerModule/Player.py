@@ -5,7 +5,7 @@ from PySide import QtGui, QtCore
 import cv2
 import numpy as np
 import math
-from view.PlayerSlider import PlayerSlider
+from view.playerModule.PlayerSlider import PlayerSlider
 
 class Player(QtGui.QWidget):
 

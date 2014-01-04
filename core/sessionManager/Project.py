@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from core.Video import Video
+from core.sessionManager.Video import Video
 
 class Project(object):
 
