@@ -31,6 +31,12 @@ class App(object):
     def importVideo(self, path):
         self._iomodule.importVideo(path)
 
+    def loadSavedFile(self, path):
+        self._iomodule.loadProject(path)
+
+    def suppressVideo(self, video):
+        self._iomodule.suppressVideo(video)
+
     def save(self):
         self._iomodule.saveCurrent()
 

@@ -3,6 +3,8 @@
 
 from PySide import QtGui, QtCore
 
+from view.playerModule.Player import Player
+
 class SessionViewItem(QtGui.QWidget):
     """
     This class define the item contained in the SessionView that stands for videos. An item is composed by a thumbnail of the video,
@@ -12,8 +14,8 @@ class SessionViewItem(QtGui.QWidget):
     def __init__(self, video, parent=None):
         super(SessionViewItem, self).__init__()
 
-        self.parent = parent
-        self.video = video
+        self._parent = parent
+        self._video = video
 
         #For css naming
         self.setObjectName("ItemWidget")
@@ -32,11 +34,11 @@ class SessionViewItem(QtGui.QWidget):
         layout.addWidget(picture)
 
         #Display the title
-        title = QtGui.QLabel(self.video.getName())
+        title = QtGui.QLabel(self._video.getName())
         layout.addWidget(title)
 
         #Display the duration of the video
-        duration = QtGui.QLabel(self.video.computeDuration())
+        duration = QtGui.QLabel(self._video.computeDuration())
         layout.addWidget(duration)
 
         #Set spacing
@@ -55,13 +57,13 @@ class SessionViewItem(QtGui.QWidget):
         #Creation of a context menu action to suppress the clicked self
         suppressAction = QtGui.QAction(self.tr("&Delete"), self)
         suppressAction.setStatusTip(self.tr("Remove the video from the project"))
-        self.connect(suppressAction, QtCore.SIGNAL("triggered()"), self.parent, QtCore.SLOT("suppressVideo()"))
+        self.connect(suppressAction, QtCore.SIGNAL("triggered()"), self._parent, QtCore.SLOT("suppressVideo()"))
         self.addAction(suppressAction)
 
         #Creation of the play video action
         playAction = QtGui.QAction(self.tr("&Play"), self)
         playAction.setStatusTip(self.tr("Play this video in a new window"))
-        self.connect(playAction, QtCore.SIGNAL("triggered()"), self.parent, QtCore.SLOT("playVideo()"))
+        self.connect(playAction, QtCore.SIGNAL("triggered()"), self._parent, QtCore.SLOT("playVideo()"))
         self.addAction(playAction)
 
     def drawThumbnail(self):
@@ -69,7 +71,7 @@ class SessionViewItem(QtGui.QWidget):
         Extract a thumbnail from the video and return it
         :return : QPixmap
         """
-        thumbnail = QtGui.QPixmap(self.video.getThumbnail())
+        thumbnail = QtGui.QPixmap(self._video.getThumbnail())
         reduceThumbnail = thumbnail.scaledToHeight(30)
         picture = QtGui.QLabel()
         picture.setPixmap(reduceThumbnail)
@@ -78,5 +80,5 @@ class SessionViewItem(QtGui.QWidget):
 
     def mouseDoubleClickEvent(self, *args, **kwargs):
         """Override the mouse double click event """
-        self.parent.playVideo()
+        Player.play(self._video)
 

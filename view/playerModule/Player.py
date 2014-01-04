@@ -204,3 +204,10 @@ class Player(QtGui.QWidget):
             return qim.copy() if copy else qim
         else :
             raise RuntimeError("Player : cannot convert frame to QImage.")
+
+    # ------------------------------- STATIC --------------------------------------- #
+    @staticmethod
+    def play(video):
+        """ Start a new window to play the selected video  """
+        player = Player()
+        player.start(video)
