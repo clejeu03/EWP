@@ -45,12 +45,15 @@ class Controller(object):
 
             self._session.newProject(name, projectPath)
 
-            #Prepare the timeline view and display it to the main window
-            self._sketchBoard = SketchBoard()
-            sketchBoardView = SketchBoardView()
-            self._mainWindow.setSketchBoardView(sketchBoardView)
+            self.initSketchBoard()
 
             self._mainWindow.update()
+
+    def initSketchBoard(self):
+        #Prepare the timeline view and display it to the main window
+        self._sketchBoard = SketchBoard()
+        sketchBoardView = SketchBoardView()
+        self._mainWindow.setSketchBoardView(sketchBoardView)
 
     def importVideo(self, path):
         """
@@ -104,7 +107,7 @@ class Controller(object):
         print "load : " + str(result)
 
         self._session.openProject(result)
-
+        self.initSketchBoard()
         self._mainWindow.update()
 
     def playVideo(self, video):
@@ -112,6 +115,8 @@ class Controller(object):
 
         self.player.start(video)
 
+
+    #---------------------- Getter / Setter -------------------------------- #
     def initSession(self):
         self._session = Session()
 
@@ -120,5 +125,8 @@ class Controller(object):
 
     def getSession(self):
         return self._session
+
+    def getSketchBoard(self):
+        return self._sketchBoard
 
 

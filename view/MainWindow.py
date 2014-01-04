@@ -192,16 +192,17 @@ class MainWindow(QtGui.QMainWindow):
 
     def update(self):
         self._sessionView.update()
-        self._timelineView.update()
+        if not self._sketchBoardView is None:
+            self._sketchBoardView.update()
 
 
     #------------------------ GETTER / SETTER ------------------------ #
 
-    def setTimelineView(self, sketchBoardView):
+    def setSketchBoardView(self, sketchBoardView):
         self._sketchBoardView = sketchBoardView
         bottomDockWidget = QtGui.QDockWidget(self.tr("SketchBoard"), self)
         bottomDockWidget.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea | QtCore.Qt.TopDockWidgetArea)
-        bottomDockWidget.setWidget(self._timelineView)
+        bottomDockWidget.setWidget(self._sketchBoardView)
         bottomDockWidget.setFeatures(QtGui.QDockWidget.DockWidgetMovable | QtGui.QDockWidget.DockWidgetClosable)
         self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, bottomDockWidget)
 
