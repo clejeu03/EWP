@@ -2,27 +2,26 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import os
 from PySide import QtGui
 
-from controller.Controller import Controller
+from app import App
 from view.MainWindow import MainWindow
 
 #------------- MAIN --------------#
-app = QtGui.QApplication(sys.argv)
+#Init Qt
+qApp = QtGui.QApplication(sys.argv)
 
+#Initialization of app and main window
+app = App()
+mainWindow = MainWindow(app)
+app.setMainWindow(mainWindow)
 
-#Creation of the main Controller
-controller = Controller()
+#controller.loadSavedFile("/home/cecilia/Documents/ProjectTest/ProjectTest.ewp")
 
-#Creation of the Main Window
-mainWindow = MainWindow(controller)
-controller.setMainWindow(mainWindow)
-
-controller.loadSavedFile("/home/cecilia/Documents/ProjectTest/ProjectTest.ewp")
-
+#Show the main window
 if mainWindow :
     mainWindow.show()
 
-sys.exit(app.exec_())
+#Execute qt
+sys.exit(qApp.exec_())
 

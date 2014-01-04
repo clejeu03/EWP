@@ -7,10 +7,12 @@ from view.NewProjectDialog import NewProjectDialog
 
 class MainWindow(QtGui.QMainWindow):
 
-    def __init__(self, controller):
+    def __init__(self, app):
         super(MainWindow, self).__init__()
 
-        self._controller = controller
+        #TODO : change controller
+        #self._controller = controller
+        self._app = app
         self.setWindowTitle('EWP')
 
         #Actions
