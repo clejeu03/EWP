@@ -18,6 +18,7 @@ class MainWindow(QtGui.QMainWindow):
 
         #Main Widgets
         self._sessionView = None
+        self._sketchBoardView = None
 
         #Restore the users parameters
         settings = QtCore.QSettings("Cecilia", "EWP")
@@ -71,11 +72,13 @@ class MainWindow(QtGui.QMainWindow):
         self.setCentralWidget(self.mdiArea)
 
         #Draw the Player View
-        rightDockWidget = QtGui.QDockWidget("Player", self)
-        rightDockWidget.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
-        #rightDockWidget.setWidget(self.player)
-        rightDockWidget.setFeatures(QtGui.QDockWidget.DockWidgetMovable | QtGui.QDockWidget.DockWidgetClosable)
-        self.addDockWidget(QtCore.Qt.RightDockWidgetArea, rightDockWidget)
+        #rightDockWidget = QtGui.QDockWidget("Player", self)
+        #rightDockWidget.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
+        ##rightDockWidget.setWidget(self.player)
+        #rightDockWidget.setFeatures(QtGui.QDockWidget.DockWidgetMovable | QtGui.QDockWidget.DockWidgetClosable)
+        #self.addDockWidget(QtCore.Qt.RightDockWidgetArea, rightDockWidget)
+
+
 
     def initStatusBar(self):
         """ Initialize the status bar of the main window """
@@ -133,6 +136,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.aboutAction, QtCore.SIGNAL("triggered()"), self, QtCore.SLOT("showAbout()"))
 
 
+    # ------------------------- EVENT HANDLERS ------------------------ #
     def closeEvent(self, event):
         """Before really closing, store the preferences of the user and change the _aboutToClose value."""
         settings = QtCore.QSettings("Cecilia", "EWP")
@@ -188,9 +192,22 @@ class MainWindow(QtGui.QMainWindow):
 
     def update(self):
         self._sessionView.update()
+        if not self._sketchBoardView is None:
+            self._sketchBoardView.update()
 
 
     #------------------------ GETTER / SETTER ------------------------ #
 
+    def setSketchBoardView(self, sketchBoardView):
+        self._sketchBoardView = sketchBoardView
+        bottomDockWidget = QtGui.QDockWidget(self.tr("SketchBoard"), self)
+        bottomDockWidget.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea | QtCore.Qt.TopDockWidgetArea)
+        bottomDockWidget.setWidget(self._sketchBoardView)
+        bottomDockWidget.setFeatures(QtGui.QDockWidget.DockWidgetMovable | QtGui.QDockWidget.DockWidgetClosable)
+        self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, bottomDockWidget)
+
     def getSessionView(self):
         return self._sessionView
+
+    def getSketchBoardView(self):
+        return self._sketchBoardView
