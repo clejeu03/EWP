@@ -44,3 +44,10 @@ QListView#track::item {
     padding : 0px;
     margin : 0px;
 }
+
+/* -------------------- SKETCH -------------------------- */
+QFrame#sketch {
+    background : red;
+    margin : 0px;
+    padding : 0px;
+}

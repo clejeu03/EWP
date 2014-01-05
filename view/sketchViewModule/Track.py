@@ -3,6 +3,8 @@
 
 from PySide import QtGui, QtCore
 
+from view.sketchViewModule.SketchWidget import SketchWidget
+
 class Track (QtGui.QWidget):
 
     def __init__(self, video):
@@ -25,7 +27,7 @@ class Track (QtGui.QWidget):
         layout = QtGui.QHBoxLayout()
 
         #Set the script witness
-        self._scriptWitness = QtGui.QPixmap(10, 30)
+        self._scriptWitness = QtGui.QPixmap(10, 40)
         self._scriptWitness.fill(QtCore.Qt.blue)
         scriptColor = QtGui.QLabel()
         scriptColor.setPixmap(self._scriptWitness)
@@ -34,7 +36,7 @@ class Track (QtGui.QWidget):
         self._label = QtGui.QLabel(self._video.getName())
 
         #Main widget : the draw part
-        self._drawPart = QtGui.QSlider()
+        self._drawPart = SketchWidget()
 
         #Options
         self._reverseState = QtGui.QCheckBox()
@@ -44,6 +46,9 @@ class Track (QtGui.QWidget):
         layout.addWidget(self._label)
         layout.addWidget(self._drawPart)
         layout.addWidget(self._reverseState)
+
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setStretch(2, 4)
         self.setLayout(layout)
 
     def drawTrack(self):
