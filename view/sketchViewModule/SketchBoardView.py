@@ -79,7 +79,9 @@ class SketchBoardView (QtGui.QWidget):
         :type video: Video class from core module
         """
         widget = Track(video)
-        self._trackList.addItem(widget)
+        item = QtGui.QListWidgetItem()
+        self._trackList.addItem(item)
+        self._trackList.setItemWidget(item, widget)
         self.update()
 
     def update(self):

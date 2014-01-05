@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from PySide import QtGui, QtCore
-from view.SessionViewItem import SessionViewItem
+from view.sketchViewModule.SessionViewItem import SessionViewItem
 
 class SessionView(QtGui.QStackedWidget) :
 
