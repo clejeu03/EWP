@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from PySide import QtGui, QtCore
-from view.Track import Track
-from view.SketchList import SketchList
+from view.sketchViewModule.Track import Track
+from view.sketchViewModule.SketchList import SketchList
 
 class SketchBoardView (QtGui.QWidget):
 

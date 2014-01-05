@@ -5,7 +5,7 @@ from PySide import QtGui, QtCore
 
 from view.SessionView import SessionView
 from view.dialogs.NewProjectDialog import NewProjectDialog
-from view.SketchBoardView import SketchBoardView
+from view.sketchViewModule.SketchBoardView import SketchBoardView
 
 class MainWindow(QtGui.QMainWindow):
 

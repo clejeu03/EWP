@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from PySide import QtGui, QtCore
-from view.sketchViewModule.SessionViewItem import SessionViewItem
+from view.SessionViewItem import SessionViewItem
 
 class SessionView(QtGui.QStackedWidget) :
 
@@ -18,6 +18,9 @@ class SessionView(QtGui.QStackedWidget) :
 
         #Init the view
         self.init()
+
+        #For the style sheet
+        self.list.setObjectName("session")
 
     def init(self):
         """ Draw the session view for the first time """

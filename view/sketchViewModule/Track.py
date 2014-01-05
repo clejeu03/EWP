@@ -61,3 +61,10 @@ class Track (QtGui.QWidget):
 
         else :
             raise RuntimeError("Plop error ! ")
+
+    #def paintEvent(self, event):
+    #    """ Necessary for the style sheet   """
+    #    opt = QtGui.QStyleOption()
+    #    opt.initFrom(self)
+    #    p = QtGui.QPainter(self)
+    #    self.style().drawPrimitive(QtGui.QStyle.PE_Widget, opt, p)
