@@ -10,17 +10,9 @@ class Track (QtGui.QListWidgetItem):
 
         self._video = video
         self._mode = 'DEFAULT'
-        #TODO : enum ?
 
-    def init(self):
-        layout = QtGui.QHBoxLayout()
-        videoName = QtGui.QLabel(self._video.getName())
+        self.setText(self._video.getName())
 
-        #self.drawTrack(self._video)
-
-        layout.addWidget(videoName)
-
-        self.setLayout(layout)
 
     def drawTrack(self):
         """

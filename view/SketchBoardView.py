@@ -3,6 +3,7 @@
 
 from PySide import QtGui, QtCore
 from view.Track import Track
+from view.SketchList import SketchList
 
 class SketchBoardView (QtGui.QWidget):
 
@@ -25,7 +26,7 @@ class SketchBoardView (QtGui.QWidget):
         self._toolbar = self.initToolbar()
 
         #Init the main widget : the list
-        self._trackList = QtGui.QListWidget()
+        self._trackList = SketchList()
 
         #Setting up the layout
         layout = QtGui.QVBoxLayout()
