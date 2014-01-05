@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from PySide import QtGui, QtCore
+
 from view.SessionView import SessionView
 from view.dialogs.NewProjectDialog import NewProjectDialog
 from view.SketchBoardView import SketchBoardView
@@ -38,7 +39,6 @@ class MainWindow(QtGui.QMainWindow):
         :param styleFile: the name of the file, supposing it's belong to the resources folder, if there isn't, then the default style is applied
         :type styleFile: string
         """
-
         #Read the default file
         file = QtCore.QFile("resources/styles/default.css")
         if not file.open(QtCore.QIODevice.ReadOnly | QtCore.QIODevice.Text) is True :
@@ -54,7 +54,6 @@ class MainWindow(QtGui.QMainWindow):
 
     def initView(self):
         """ Draw the main docked widget of the mainWindow"""
-
         #Draw the Session View
         self._sessionView = SessionView(self._app)
         leftDockWidget = QtGui.QDockWidget("Session", self)
@@ -79,12 +78,9 @@ class MainWindow(QtGui.QMainWindow):
         #rightDockWidget.setFeatures(QtGui.QDockWidget.DockWidgetMovable | QtGui.QDockWidget.DockWidgetClosable)
         #self.addDockWidget(QtCore.Qt.RightDockWidgetArea, rightDockWidget)
 
-
-
     def initStatusBar(self):
         """ Initialize the status bar of the main window """
         self.statusBar().showMessage(self.tr("Ready"))
-
 
     def initMenu(self):
         """
@@ -136,7 +132,6 @@ class MainWindow(QtGui.QMainWindow):
         self.aboutAction.setStatusTip(self.tr("Show the credits and authors"))
         self.connect(self.aboutAction, QtCore.SIGNAL("triggered()"), self, QtCore.SLOT("showAbout()"))
 
-
     # ------------------------- EVENT HANDLERS ------------------------ #
     def closeEvent(self, event):
         """Before really closing, store the preferences of the user and change the _aboutToClose value."""
@@ -145,7 +140,6 @@ class MainWindow(QtGui.QMainWindow):
         super(MainWindow, self).closeEvent(event)
 
     # ------------------------ SIGNAL / SLOTS HANDLER ---------------- #
-
     def initSketchBoard(self):
         self._sketchBoardView = SketchBoardView(self._app)
         bottomDockWidget = QtGui.QDockWidget(self.tr("SketchBoard"), self)
@@ -189,7 +183,6 @@ class MainWindow(QtGui.QMainWindow):
         about.setLayout(layout)
         about.show()
 
-
     def save(self):
         """ Save the current project in its state """
         self._app.save()
@@ -205,9 +198,7 @@ class MainWindow(QtGui.QMainWindow):
         if not self._sketchBoardView is None:
             self._sketchBoardView.update()
 
-
     #------------------------ GETTER / SETTER ------------------------ #
-
     def getSessionView(self):
         return self._sessionView
 
