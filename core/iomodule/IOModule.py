@@ -68,11 +68,8 @@ class IOModule(object):
         :type path : string
         """
         result = pickle.load(open(path, "rb"))
-        print "load : " + str(result)
-
         self._app.getSession().openProject(result)
 
-        self._app.update()
 
     def saveCurrent(self):
         """ Serialization of the core module using pickle """

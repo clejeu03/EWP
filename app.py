@@ -26,13 +26,16 @@ class App(object):
         """ Create a new project by forwarding the creation of folder to IOModule and the creation of the model to the core session manager  """
         projectPath = self._iomodule.createNewProjectDir(name, path)
         self._session.newProject(name, projectPath)
+        self._mainWindow.initSketchBoard()
         self.update()
 
     def importVideo(self, path):
         self._iomodule.importVideo(path)
 
     def loadSavedFile(self, path):
-        self._iomodule.loadProject(path)
+        value = self._iomodule.loadProject(path)
+        self._mainWindow.initSketchBoard()
+        self.update()
 
     def suppressVideo(self, video):
         self._iomodule.suppressVideo(video)

@@ -32,10 +32,8 @@ class Session(object):
     def openProject(self, project):
         """
         Create a Project.
-        :param name : the name of the Project
-        :param path: the absolute path of the Project
-        :type name: str
-        :type path: str
+        :param project : the project saved and reloaded
+        :type project: Project
         """
         self._projectsList.append(project)
         self.addToRecentProjects(project)

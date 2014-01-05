@@ -2,12 +2,15 @@
 # -*- coding: utf-8 -*-
 
 from PySide import QtGui, QtCore
-from view.VideoSketchView import VideoSketchView
+from view.Track import Track
 
 class SketchBoardView (QtGui.QWidget):
 
-    def __init__(self):
+    def __init__(self, app):
         super(SketchBoardView, self).__init__()
+
+        self._app = app
+        self._model = app.getSession().currentProject()
 
         self._toolbar = None
         self._videoListView = None
@@ -25,7 +28,7 @@ class SketchBoardView (QtGui.QWidget):
         :param video: the video that the sketch line stands for
         :type video: Video class from core module
         """
-        widget = VideoSketchView(video)
+        widget = Track(video)
         self._videoListView.append(widget)
 
     def update(self):

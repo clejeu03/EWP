@@ -4,6 +4,7 @@
 from PySide import QtGui, QtCore
 from view.SessionView import SessionView
 from view.dialogs.NewProjectDialog import NewProjectDialog
+from view.SketchBoardView import SketchBoardView
 
 class MainWindow(QtGui.QMainWindow):
 
@@ -145,6 +146,15 @@ class MainWindow(QtGui.QMainWindow):
 
     # ------------------------ SIGNAL / SLOTS HANDLER ---------------- #
 
+    def initSketchBoard(self):
+        self._sketchBoardView = SketchBoardView(self._app)
+        bottomDockWidget = QtGui.QDockWidget(self.tr("SketchBoard"), self)
+        bottomDockWidget.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea | QtCore.Qt.TopDockWidgetArea)
+        bottomDockWidget.setWidget(self._sketchBoardView)
+        bottomDockWidget.setFeatures(QtGui.QDockWidget.DockWidgetMovable | QtGui.QDockWidget.DockWidgetClosable)
+        self.setCorner(QtCore.Qt.BottomLeftCorner, QtCore.Qt.LeftDockWidgetArea)
+        self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, bottomDockWidget)
+
     def newProject(self):
         """ Forward the creation of a new project to the application. """
         dialog = NewProjectDialog()
@@ -197,14 +207,6 @@ class MainWindow(QtGui.QMainWindow):
 
 
     #------------------------ GETTER / SETTER ------------------------ #
-
-    def setSketchBoardView(self, sketchBoardView):
-        self._sketchBoardView = sketchBoardView
-        bottomDockWidget = QtGui.QDockWidget(self.tr("SketchBoard"), self)
-        bottomDockWidget.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea | QtCore.Qt.TopDockWidgetArea)
-        bottomDockWidget.setWidget(self._sketchBoardView)
-        bottomDockWidget.setFeatures(QtGui.QDockWidget.DockWidgetMovable | QtGui.QDockWidget.DockWidgetClosable)
-        self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, bottomDockWidget)
 
     def getSessionView(self):
         return self._sessionView
