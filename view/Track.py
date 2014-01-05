@@ -3,7 +3,7 @@
 
 from PySide import QtGui, QtCore
 
-class Track (QtGui.QWidget):
+class Track (QtGui.QListWidgetItem):
 
     def __init__(self, video):
         super(Track, self).__init__()

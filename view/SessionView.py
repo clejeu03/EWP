@@ -100,4 +100,8 @@ class SessionView(QtGui.QStackedWidget) :
 
         return list
 
+    # ------------------------ GETTER / SETTER ------------------------- #
+    def getList(self):
+        return self.list
+
 

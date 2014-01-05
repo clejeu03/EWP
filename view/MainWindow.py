@@ -141,7 +141,7 @@ class MainWindow(QtGui.QMainWindow):
 
     # ------------------------ SIGNAL / SLOTS HANDLER ---------------- #
     def initSketchBoard(self):
-        self._sketchBoardView = SketchBoardView(self._app)
+        self._sketchBoardView = SketchBoardView(self._app, self._sessionView)
         bottomDockWidget = QtGui.QDockWidget(self.tr("SketchBoard"), self)
         bottomDockWidget.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea | QtCore.Qt.TopDockWidgetArea)
         bottomDockWidget.setWidget(self._sketchBoardView)
