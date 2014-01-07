@@ -45,6 +45,7 @@ class SessionView(QtGui.QStackedWidget) :
         self.title = QtGui.QLabel()
         layout.addWidget(self.title)
         self.list = QtGui.QListWidget()
+        self.list.setDragEnabled(True)
         layout.addWidget(self.list)
         widget.setLayout(layout)
 
@@ -103,6 +104,19 @@ class SessionView(QtGui.QStackedWidget) :
             self.setCurrentIndex(1)
 
         return list
+
+    # ------------------------- EVENT HANDLERS ------------------------ #
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasFormat("app/video"):
+            event.accept()
+        else:
+            event.ignore()
+
+    def dragMoveEvent(self, event):
+        if event.mimeData().hasFormat("app/video"):
+            event.accept()
+        else:
+            event.ignore()
 
     # ------------------------ GETTER / SETTER ------------------------- #
     def getList(self):

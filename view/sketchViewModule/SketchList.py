@@ -10,3 +10,4 @@ class SketchList(QtGui.QListWidget):
 
         #For the style sheet
         self.setObjectName("track")
+

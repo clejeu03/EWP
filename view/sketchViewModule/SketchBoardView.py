@@ -14,6 +14,8 @@ class SketchBoardView (QtGui.QWidget):
         self._model = app.getSession().currentProject()
         self._sessionView = sessionView
 
+        self.setAcceptDrops(True)
+
         self._toolbar = None
         self._trackList = None
         self._stackedWidget = None
@@ -158,3 +160,22 @@ class SketchBoardView (QtGui.QWidget):
         """ Retrieve the currently selected video from the session view to add it directly as a track """
         video = self._sessionView.getList().currentItem().data(QtCore.Qt.UserRole)
         self.newTrack(video)
+
+    # ----------------------- EVENT HANDLERS -------------------------------- #
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasFormat("app/video"):
+            event.accept()
+        else:
+            event.ignore()
+
+    def dragMoveEvent(self, event):
+        if event.mimeData().hasFormat("app/video"):
+            event.accept()
+        else:
+            event.ignore()
+
+    def dropEvent(self, event):
+        self.newTrack(event.mimeData().data("app/video"))
+
+        event.setDropAction(QtCore.Qt.CopyAction)
+        event.accept()

@@ -11,7 +11,8 @@ class Project(object):
         self._name = name
         self._path = path
         self._videos = []
-        self._sketchBoardVideos = []
+        self._sketchBoardVideos = [] #/!\ Unique variables : means can't add twice the same video on the sketch board
+        #TODO : the possibility of adding multiple times the same video to the sketch board
 
     def addVideo(self, path):
         """

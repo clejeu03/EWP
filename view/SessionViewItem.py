@@ -78,7 +78,28 @@ class SessionViewItem(QtGui.QWidget):
 
         return picture
 
-    def mouseDoubleClickEvent(self, *args, **kwargs):
+    # --------------------------- EVENT HANDLERS -------------------------- #
+
+    def mouseDoubleClickEvent(self, event):
         """Override the mouse double click event """
         Player.play(self._video)
+
+    def mouseMoveEvent(self, event):
+        if event.button() == QtCore.Qt.LeftButton:
+            print 'drag'
+            mimeData = QtCore.QMimeData()
+            mimeData.setData("app/video", self)
+
+            drag = QtGui.QDrag(self)
+            drag.setMimeData(mimeData)
+            drag.setHotSpot(event.pos() - self.rect().topLeft())
+
+            dropAction = drag.start(QtCore.Qt.CopyAction)
+
+    def mousePressEvent(self, event):
+        if event.button() == QtCore.Qt.LeftButton:
+            print 'press'
+
+
+
 
