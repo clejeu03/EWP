@@ -11,6 +11,7 @@ class Project(object):
         self._name = name
         self._path = path
         self._videos = []
+        self._sketchBoardVideos = []
 
     def addVideo(self, path):
         """
@@ -33,9 +34,19 @@ class Project(object):
                 print "item : " + str(type(item)) + "video : " + str(type(video))
                 if item == video:
                     self._videos.remove(video)
+                    #If the video is on the sketchboard too, remove it
+                    if video in self._sketchBoardVideos:
+                        self._sketchBoardVideos.remove(video)
         else:
             raise TypeError("Trying to suppress an item which is not of type Video")
 
+    def newSketchBoardVideo(self, video):
+        """ A video need to be added to the sketchboard view, so this function update the model first of all. """
+
+        if video in self._videos:
+            self._sketchBoardVideos.append(video)
+        else:
+            raise Exception("Error : video not recognized.")
 
     # ---------------------- BUILT-IN FUNCTIONS ------------------------- #
 
@@ -69,3 +80,6 @@ class Project(object):
 
     def getVideos(self):
         return self._videos
+
+    def getSketchBoardVideos(self):
+        return self._sketchBoardVideos

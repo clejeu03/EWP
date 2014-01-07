@@ -86,6 +86,7 @@ class SessionView(QtGui.QStackedWidget) :
 
             #Update the list if it has changed
             if not self.list is None:
+                #TODO : possible to make a smarter update ?
                 #Clear the view by erasing all the items of the list
                 self.list.clear()
 

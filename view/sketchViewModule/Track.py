@@ -67,9 +67,24 @@ class Track (QtGui.QWidget):
         else :
             raise RuntimeError("Plop error ! ")
 
+    def update(self, video):
+        self.setVideo(video)
+
+        #TODO : correct update
+
+
+
     #def paintEvent(self, event):
     #    """ Necessary for the style sheet   """
     #    opt = QtGui.QStyleOption()
     #    opt.initFrom(self)
     #    p = QtGui.QPainter(self)
     #    self.style().drawPrimitive(QtGui.QStyle.PE_Widget, opt, p)
+
+
+    # ------------------------------ GETTER / SETTER ---------------------- #
+    def getVideo(self):
+        return self._video
+
+    def setVideo(self, video):
+        self._video = video

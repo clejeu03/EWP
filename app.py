@@ -42,6 +42,7 @@ class App(object):
 
     def save(self):
         self._iomodule.saveCurrent()
+        self._mainWindow.statusBar().showMessage("Project successfuly saved", 10)
 
     def update(self):
         """ When a changes happened in the core model, then the view need to be updated. That's the purpose of this function.  """

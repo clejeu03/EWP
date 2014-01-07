@@ -72,11 +72,23 @@ class IOModule(object):
 
 
     def saveCurrent(self):
-        """ Serialization of the core module using pickle """
-        name = self._app.getSession().currentProject().getName()
+        """
+        Serialization of the core module using pickle. The data saved are :
+        - the class Project that is the current one
+        - the class SketchBoardView for the list of the videos in the timeline and the specifications of visualization
+        """
+        #Retrieve the path of the saved file
         path = self._app.getSession().currentProject().getPath() + os.sep + str(name) + ".ewp"
-        print "Save : " + str(self._app.getSession().currentProject())
-        pickle.dump(self._app.getSession().currentProject(), open(path, "wb"))
+
+        #Make up all the data together
+        data = []
+        data.append(self._app.getSession().currentProject())
+        data.append(self._app.)
+
+        #Serialize
+        pickle.dump(data, open(path, "wb"), pickle.HIGHEST_PROTOCOL)
+
+
 
     def importVideo(self, path):
         """

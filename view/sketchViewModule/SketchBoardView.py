@@ -18,6 +18,8 @@ class SketchBoardView (QtGui.QWidget):
         self._trackList = None
         self._stackedWidget = None
 
+        self._videoTrackTable = {}
+
         self.init()
 
     def init(self):
@@ -78,18 +80,36 @@ class SketchBoardView (QtGui.QWidget):
         :param video: the video that the sketch line stands for
         :type video: Video class from core module
         """
-        widget = Track(video)
-        item = QtGui.QListWidgetItem()
-        self._trackList.addItem(item)
-        self._trackList.setItemWidget(item, widget)
+        #Updating the model
+        self._model.newSketchBoardVideo(video)
+
+        #Updating the view
         self.update()
 
     def update(self):
         """ Update the view of the list of tracks """
 
+        #If the view got no tracks
         if self._trackList.count() == 0:
             self._stackedWidget.setCurrentIndex(0)
+
+        #If the view already got tracks, just created new ones, and update the others
         else :
+            for video in self._model.getSketchBoardVideos():
+
+                if self._videoTrackTable.has_key(video):
+                    #Retrieve all the values corresponding for the key
+                    for widget in self._videoTrackTable.values():
+                        #Update them only if there are different from the model data
+                        if widget.getVideo() != video:
+                            widget.update(video)
+                else :
+                    #Create a new track for this video
+                    widget = Track(video)
+                    item = QtGui.QListWidgetItem()
+                    self._trackList.addItem(item)
+                    self._trackList.setItemWidget(item, widget)
+
             self._stackedWidget.setCurrentIndex(1)
 
     # ----------------------- SIGNAL / SLOT ----------------------------------- #
