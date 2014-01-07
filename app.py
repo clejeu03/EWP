@@ -33,9 +33,10 @@ class App(object):
         self._iomodule.importVideo(path)
 
     def loadSavedFile(self, path):
-        self._iomodule.loadProject(path)
-        self._mainWindow.initSketchBoard()
-        self.update()
+        value = self._iomodule.loadProject(path)
+        if value is True:
+            self._mainWindow.initSketchBoard()
+            self.update()
 
     def suppressVideo(self, video):
         self._iomodule.suppressVideo(video)

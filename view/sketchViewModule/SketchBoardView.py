@@ -19,6 +19,9 @@ class SketchBoardView (QtGui.QWidget):
         self._stackedWidget = None
 
         self._videoTrackTable = {}
+        # /!\ Note : self._videoTrackTable stands for a dict where the keys are the widget contained in QListWidgetItem and the values
+        # are the video that were used for the widget creation. Why ? Because each widget is unique whereas a video can be found multiple
+        # times in the container. So as in Python dict contain unique key, THE WIDGETS ARE THE KEYS
 
         self.init()
 
@@ -103,28 +106,33 @@ class SketchBoardView (QtGui.QWidget):
         """ Update the view of the list of tracks """
 
         #If the view got no tracks
-        if self._model.getSketchBoardVideos().count() == 0:
+        if len(self._model.getSketchBoardVideos()) == 0:
             self._stackedWidget.setCurrentIndex(0)
 
         #If the view already got tracks, just created new ones, and update the others
         else :
             for video in self._model.getSketchBoardVideos():
 
-                if self._videoTrackTable.has_key(video):
-                    #Retrieve all the values corresponding for the key
-                    for widget in self._videoTrackTable.values():
-                        #Update them only if there are different from the model data
-                        if widget.getVideo() != video:
-                            widget.update(video)
+                if video in self._videoTrackTable.values():
+                    #Updating the data from the model
+                    #Retrieve all the keys corresponding for the value
+                    # for key in self._videoTrackTable.keys():
+                    #     #Update them only if there are different from the model data
+                    #     if self._videoTrackTable[key] == video:
+                    #         if  key.getVideo() != video:
+                    #             key.update(video)
+                    pass
                 else :
                     #Create a new track for this video
                     widget = Track(video)
                     item = QtGui.QListWidgetItem()
                     self._trackList.addItem(item)
                     self._trackList.setItemWidget(item, widget)
+                    #Reference the new variables
+                    self._videoTrackTable[widget] = video
 
             #Check if a video have been suppressed
-            for video, widget in  self._videoTrackTable.items():
+            for widget, video in  self._videoTrackTable.items():
                 if video not in self._model.getSketchBoardVideos():
                     #Remove the widget
                     self._trackList.removeItemWidget(widget)
@@ -139,6 +147,8 @@ class SketchBoardView (QtGui.QWidget):
                             #Delete the element
                             listElement = self._trackList.takeItem(row)
                             del listElement
+                            #Update the reference table
+                            self._videoTrackTable.pop(widget)
 
 
             self._stackedWidget.setCurrentIndex(1)

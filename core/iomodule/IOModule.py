@@ -66,11 +66,17 @@ class IOModule(object):
         Load the file at the given path using pickle module to recreate the classes
         :param path: the path of the save file
         :type path : string
+        :return type: boolean for continuing the loading process after this function is done
         """
         result = pickle.load(open(path, "rb"))
 
         #First value of the result table : project class
-        self._app.getSession().openProject(result[0])
+        project = result[0]
+        self._app.getSession().openProject(project)
+
+        #Second value etc...
+
+        return True
 
 
     def saveCurrent(self):
@@ -80,6 +86,7 @@ class IOModule(object):
         - the class SketchBoardView for the list of the videos in the timeline and the specifications of visualization
         """
         #Retrieve the path of the saved file
+        name = self._app.getSession().currentProject().getName()
         path = self._app.getSession().currentProject().getPath() + os.sep + str(name) + ".ewp"
 
         #Make up all the data together
