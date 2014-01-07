@@ -55,13 +55,21 @@ class SketchBoardView (QtGui.QWidget):
         """
         toolbar = QtGui.QToolBar()
 
+        #TODO : manage the enable/desable of the actions
+
         #Actions
         self.addVideoAction = QtGui.QAction(self.tr("&Add Video"), self)
         self.addVideoAction.setStatusTip(self.tr("Add a video to the sketch board"))
         #self.addVideoAction.setDisabled()
         self.connect(self.addVideoAction, QtCore.SIGNAL("triggered()"), self, QtCore.SLOT("addVideo()"))
 
+        self.suppressVideoAction = QtGui.QAction(self.tr("&Remove Video"), self)
+        self.suppressVideoAction.setStatusTip(self.tr("Remove the selected video from the sketch board"))
+        #self.suppressVideoAction.setDisabled()
+        self.connect(self.suppressVideoAction, QtCore.SIGNAL("triggered()"), self, QtCore.SLOT("suppressVideo()"))
+
         toolbar.addAction(self.addVideoAction)
+        toolbar.addAction(self.suppressVideoAction)
 
         return toolbar
 
@@ -160,6 +168,11 @@ class SketchBoardView (QtGui.QWidget):
         """ Retrieve the currently selected video from the session view to add it directly as a track """
         video = self._sessionView.getList().currentItem().data(QtCore.Qt.UserRole)
         self.newTrack(video)
+
+    def suppressVideo(self):
+        """ Retrieve the currently selected video from the sktech board view to remove it """
+        video = self._trackList.selectedItems()[0]
+        self.removeTrack(video)
 
     # ----------------------- EVENT HANDLERS -------------------------------- #
     def dragEnterEvent(self, event):
