@@ -36,15 +36,12 @@ class SketchBoardView (QtGui.QWidget):
         self._stackedWidget.addWidget(self.createEmptyProjectWidget())
         self._stackedWidget.addWidget(self._trackList)
 
-        #If there are no track then help the user by displaying special widget
-        if self._trackList.count() == 0 :
-            self._stackedWidget.setCurrentIndex(0)
-        else:
-            self._stackedWidget.setCurrentIndex(1)
-
         layout.addWidget(self._toolbar)
         layout.addWidget(self._stackedWidget)
         self.setLayout(layout)
+
+        #Display tracks if there are, or the empty widget
+        self.update()
 
     def initToolbar(self):
         """
@@ -90,7 +87,7 @@ class SketchBoardView (QtGui.QWidget):
         """ Update the view of the list of tracks """
 
         #If the view got no tracks
-        if self._trackList.count() == 0:
+        if self._model.getSketchBoardVideos().count() == 0:
             self._stackedWidget.setCurrentIndex(0)
 
         #If the view already got tracks, just created new ones, and update the others

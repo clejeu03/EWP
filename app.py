@@ -33,7 +33,7 @@ class App(object):
         self._iomodule.importVideo(path)
 
     def loadSavedFile(self, path):
-        value = self._iomodule.loadProject(path)
+        self._iomodule.loadProject(path)
         self._mainWindow.initSketchBoard()
         self.update()
 
