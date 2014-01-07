@@ -68,7 +68,9 @@ class IOModule(object):
         :type path : string
         """
         result = pickle.load(open(path, "rb"))
-        self._app.getSession().openProject(result)
+
+        #First value of the result table : project class
+        self._app.getSession().openProject(result[0])
 
 
     def saveCurrent(self):
@@ -83,7 +85,6 @@ class IOModule(object):
         #Make up all the data together
         data = []
         data.append(self._app.getSession().currentProject())
-        data.append(self._app.)
 
         #Serialize
         pickle.dump(data, open(path, "wb"), pickle.HIGHEST_PROTOCOL)
