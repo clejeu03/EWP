@@ -48,6 +48,13 @@ class Project(object):
         else:
             raise Exception("Error : video not recognized.")
 
+    def removeSketchBoardVideo(self, video):
+        """ A video need to be removed from the sketch board view, so this function remove it from the model first to update the view after. """
+        if video in self._sketchBoardVideos:
+            self._sketchBoardVideos.remove(video)
+        else :
+            raise Exception("Can't find the video")
+
     # ---------------------- BUILT-IN FUNCTIONS ------------------------- #
 
     def __str__(self):

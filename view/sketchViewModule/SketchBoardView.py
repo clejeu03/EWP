@@ -83,6 +83,22 @@ class SketchBoardView (QtGui.QWidget):
         #Updating the view
         self.update()
 
+    def removeTrack(self, track):
+        """
+        This function calls the model and remove the video corresponding to the selected track.
+        :param track : the track selected in the view
+        :type track: QListWidgetItem
+        """
+        #Retrieve the widget
+        widget = self._trackList.itemWidget(track)
+        video = widget.getVideo()
+
+        #Send to the model
+        self._model.removeSketchBoardVideo(video)
+
+        #Updating the view
+        self.update()
+
     def update(self):
         """ Update the view of the list of tracks """
 
@@ -106,6 +122,24 @@ class SketchBoardView (QtGui.QWidget):
                     item = QtGui.QListWidgetItem()
                     self._trackList.addItem(item)
                     self._trackList.setItemWidget(item, widget)
+
+            #Check if a video have been suppressed
+            for video, widget in  self._videoTrackTable.items():
+                if video not in self._model.getSketchBoardVideos():
+                    #Remove the widget
+                    self._trackList.removeItemWidget(widget)
+
+                    #Retrieve the QListWidgetItem for this widget and delete it
+                    for item in self._trackList.findItems() :
+                        if self._trackList.itemWidget(item) == widget :
+
+                            #Retrieve the row of the item
+                            row = self._trackList.row(item)
+
+                            #Delete the element
+                            listElement = self._trackList.takeItem(row)
+                            del listElement
+
 
             self._stackedWidget.setCurrentIndex(1)
 
